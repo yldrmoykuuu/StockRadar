@@ -415,6 +415,8 @@ def mail_gonder(konu, mesaj):
     
     
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        check_all_products_periodically()
+    else:
+        app.run(debug=True)
