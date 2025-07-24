@@ -94,18 +94,7 @@ HTML_TEMPLATE = """
                 <img src="{{ product.image }}" alt="Resim Yok">
                 <p><strong>{{ product.name }}</strong></p>
                 <p>{{ product.price }}</p>
-                <div>
-                    <strong>Fiyat Geçmişi:</strong>
-                    <ul class="price-history">
-                        {% if product.price_history %}
-                            {% for ph in product.price_history %}
-                                <li>{{ ph.date }} - {{ ph.price }}</li>
-                            {% endfor %}
-                        {% else %}
-                            <li>Fiyat geçmişi yok</li>
-                        {% endif %}
-                    </ul>
-                </div>
+               
                 <a href="{{ product.url }}" target="_blank">Link</a>
             </div>
         {% endfor %}
@@ -119,18 +108,7 @@ HTML_TEMPLATE = """
                 <img src="{{ product.image }}" alt="Resim Yok">
                 <p><strong>{{ product.name }}</strong></p>
                 <p>{{ product.price }}</p>
-                <div>
-                    <strong>Fiyat Geçmişi:</strong>
-                    <ul class="price-history">
-                        {% if product.price_history %}
-                            {% for ph in product.price_history %}
-                                <li>{{ ph.date }} - {{ ph.price }}</li>
-                            {% endfor %}
-                        {% else %}
-                            <li>Fiyat geçmişi yok</li>
-                        {% endif %}
-                    </ul>
-                </div>
+               
                 <a href="{{ product.url }}" target="_blank">Link</a>
             </div>
         {% endfor %}
@@ -144,18 +122,7 @@ HTML_TEMPLATE = """
                 <img src="{{ product.image }}" alt="Resim Yok">
                 <p><strong>{{ product.name }}</strong></p>
                 <p>{{ product.price }}</p>
-                <div>
-                    <strong>Fiyat Geçmişi:</strong>
-                    <ul class="price-history">
-                        {% if product.price_history %}
-                            {% for ph in product.price_history %}
-                                <li>{{ ph.date }} - {{ ph.price }}</li>
-                            {% endfor %}
-                        {% else %}
-                            <li>Fiyat geçmişi yok</li>
-                        {% endif %}
-                    </ul>
-                </div>
+               
                 <a href="{{ product.url }}" target="_blank">Link</a>
             </div>
         {% endfor %}
@@ -169,18 +136,7 @@ HTML_TEMPLATE = """
                 <img src="{{ product.image }}" alt="Resim Yok">
                 <p><strong>{{ product.name }}</strong></p>
                 <p>{{ product.price }}</p>
-                <div>
-                    <strong>Fiyat Geçmişi:</strong>
-                    <ul class="price-history">
-                        {% if product.price_history %}
-                            {% for ph in product.price_history %}
-                                <li>{{ ph.date }} - {{ ph.price }}</li>
-                            {% endfor %}
-                        {% else %}
-                            <li>Fiyat geçmişi yok</li>
-                        {% endif %}
-                    </ul>
-                </div>
+              
                 <a href="{{ product.url }}" target="_blank">Link</a>
             </div>
         {% endfor %}
@@ -229,17 +185,7 @@ def save_product(product):
     data["stokta"] = [p for p in data["stokta"] if p["url"] != product["url"]]
     data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != product["url"]]
 
-    price_history = product.get("price_history", [])
-    now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-
-    if not price_history:
-        price_history = []
-
-    # Son kaydı kontrol et, aynı gün ve fiyat mı diye
-    if not price_history or price_history[-1]["price"] != product["price"] or price_history[-1]["date"][:10] != now_str[:10]:
-        price_history.append({"date": now_str, "price": product["price"]})
-
-    product["price_history"] = price_history
+   
 
     # Yeni duruma göre ekle
     if product["status"] == "stokta":
@@ -393,29 +339,28 @@ def delete_product():
         return jsonify({"success": True})
     else:
         return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
+
 def check_all_products_periodically():
     data = load_saved_products()
-    changed = False
 
     for category in ["stokta", "stokta_degil"]:
         for product in data[category]:
             url = product["url"]
-            print(f"{url} için fiyat kontrolü yapılıyor...")
+            print(f"{url} için stok kontrolü yapılıyor...")
             new_data = check_stock_zara(url)
-            
+
             if "hata:" in new_data.get("status", "") or new_data.get("status") == "belirsiz":
-                print(f"{url} için fiyat durumu belirsiz veya hata var, atlanıyor.")
+                print(f"{url} için durum belirsiz veya hata var, atlanıyor.")
                 continue
 
-            # Eğer fiyat veya stok durumu değişmişse kaydet
-            if (new_data["price"] != product.get("price")) or (new_data["status"] != product.get("status")):
+            # Sadece stok durumu değişmişse kaydet ve mail gönder
+            if new_data["status"] != product.get("status"):
                 product_update = {
                     "url": url,
                     "status": new_data["status"],
                     "name": new_data.get("name", product.get("name", "Bilinmiyor")),
                     "price": new_data.get("price", product.get("price", "Bilinmiyor")),
-                    "image": new_data.get("image", product.get("image", "")),
-                    "price_history": product.get("price_history", [])
+                    "image": new_data.get("image", product.get("image", ""))
                 }
                 save_product(product_update)
                 print(f"{url} güncellendi.")
@@ -426,15 +371,11 @@ URL: {product_update['url']}
 Yeni Durum: {product_update['status']}
 Yeni Fiyat: {product_update['price']}
 """
-alici_email = "kendi-emailin@example.com"  # Buraya mail adresini yaz
-mail_gonder(konu, mesaj)
+                mail_gonder(konu, mesaj)
+
+    print("Stok kontrolü tamamlandı.")
 
 
-print("Stok kontrolü tamamlandı.")
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=check_all_products_periodically, trigger="interval", minutes=60)
-scheduler.start()
 
 def mail_gonder(konu, mesaj):
     smtp_server = 'smtp.gmail.com'
