@@ -181,13 +181,12 @@ def load_saved_products():
 def save_product(product):
     data = load_saved_products()
 
-    # Ürünü önce stokta ve stokta_degil listelerinden sil
     data["stokta"] = [p for p in data["stokta"] if p["url"] != product["url"]]
     data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != product["url"]]
 
    
 
-    # Yeni duruma göre ekle
+    
     if product["status"] == "stokta":
         data["stokta"].append(product)
     elif product["status"] == "stokta_degil":
@@ -240,7 +239,7 @@ def check_stock_zara(url):
             "name": product_name,
             "price": product_price,
             "image": product_img,
-            "price_history": []
+            
         }
 
     except Exception as e:
@@ -340,8 +339,12 @@ def delete_product():
     else:
         return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
 
+
+
 def check_all_products_periodically():
     data = load_saved_products()
+    değişen_ürünler = []
+    hiç_değişmedi = True  # Başta değişiklik yok gibi kabul et
 
     for category in ["stokta", "stokta_degil"]:
         for product in data[category]:
@@ -353,8 +356,8 @@ def check_all_products_periodically():
                 print(f"{url} için durum belirsiz veya hata var, atlanıyor.")
                 continue
 
-            # Sadece stok durumu değişmişse kaydet ve mail gönder
             if new_data["status"] != product.get("status"):
+                hiç_değişmedi = False
                 product_update = {
                     "url": url,
                     "status": new_data["status"],
@@ -363,17 +366,23 @@ def check_all_products_periodically():
                     "image": new_data.get("image", product.get("image", ""))
                 }
                 save_product(product_update)
+                değişen_ürünler.append(product_update)
                 print(f"{url} güncellendi.")
-                konu = f"Stok Güncellemesi: {product_update['name']}"
-                mesaj = f"""
-Ürün: {product_update['name']}
-URL: {product_update['url']}
-Yeni Durum: {product_update['status']}
-Yeni Fiyat: {product_update['price']}
-"""
-                mail_gonder(konu, mesaj)
 
+    # E-posta gönder
+    if hiç_değişmedi:
+        konu = "Stok Durumu: Değişiklik Yok"
+        mesaj = "🔄 Hiçbir ürünün stok durumu değişmedi."
+    else:
+        konu = "📦 Stok Güncellemeleri"
+        mesaj = "Aşağıdaki ürünlerde stok durumu değişti:\n\n"
+        for p in değişen_ürünler:
+            durum = "✔️ Stokta" if p["status"] == "stokta" else "❌ Stokta Değil"
+            mesaj += f"🛍️ {p['name']}\nDurum: {durum}\nFiyat: {p['price']}\nURL: {p['url']}\n\n"
+
+    mail_gonder(konu, mesaj)
     print("Stok kontrolü tamamlandı.")
+
 
 
 
