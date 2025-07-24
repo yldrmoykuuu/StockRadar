@@ -1,0 +1,45 @@
+{
+    "stokta": [
+        {
+            "url": "https://www.zara.com/tr/tr/duz-renkli-pilili-t-shirt-p00895609.html?v1=463551695",
+            "status": "stokta",
+            "name": "DÜZ RENKLİ PİLİLİ T-SHIRT",
+            "price": "320,00 TL",
+            "image": "https://static.zara.net/assets/public/f6a8/b73c/dca74e0e8ca0/1cd56eb103a8/00895609800-e1/00895609800-e1.jpg?ts=1739894501794&w=570",
+            "price_history": [
+                {
+                    "date": "2025-07-24 14:25",
+                    "price": "320,00 TL"
+                }
+            ]
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/dikis-detayli-mini-canta-p16529510.html?v1=452702084&v2=2417728",
+            "status": "stokta",
+            "name": "DİKİŞ DETAYLI MİNİ ÇANTA",
+            "price": "1.690,00 TL",
+            "image": "https://static.zara.net/assets/public/6cee/74d6/96114311bd1c/57bb5efe7f89/16529510709-p/16529510709-p.jpg?ts=1746183203554&w=570",
+            "price_history": [
+                {
+                    "date": "2025-07-24 14:25",
+                    "price": "1.690,00 TL"
+                }
+            ]
+        }
+    ],
+    "stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-capraz-askili-canta-p11143530.html?v1=426955083",
+            "status": "stokta_degil",
+            "name": "HAYVAN DESENLİ ÇAPRAZ ASKILI ÇANTA",
+            "price": "Bilinmiyor",
+            "image": "https://static.zara.net/assets/public/3e63/eb0b/0e034f9ebeb9/9aece8d82b9c/11143530700-p/11143530700-p.jpg?ts=1734523453182&w=570",
+            "price_history": [
+                {
+                    "date": "2025-07-24 14:24",
+                    "price": "Bilinmiyor"
+                }
+            ]
+        }
+    ]
+}
