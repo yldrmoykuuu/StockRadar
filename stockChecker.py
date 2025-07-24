@@ -11,6 +11,8 @@ import pandas as pd
 from io import BytesIO
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
+import smtplib
+from email.mime.text import MIMEText
 
 from flask import Flask, render_template, request, send_file
 from io import BytesIO
@@ -391,7 +393,6 @@ def delete_product():
         return jsonify({"success": True})
     else:
         return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
-    
 def check_all_products_periodically():
     data = load_saved_products()
     changed = False
@@ -417,16 +418,52 @@ def check_all_products_periodically():
                     "price_history": product.get("price_history", [])
                 }
                 save_product(product_update)
-                changed = True
                 print(f"{url} güncellendi.")
+                konu = f"Stok Güncellemesi: {product_update['name']}"
+                mesaj = f"""
+Ürün: {product_update['name']}
+URL: {product_update['url']}
+Yeni Durum: {product_update['status']}
+Yeni Fiyat: {product_update['price']}
+"""
+alici_email = "kendi-emailin@example.com"  # Buraya mail adresini yaz
+mail_gonder(konu, mesaj)
 
-    if changed:
-        print("Bazı ürünler güncellendi.")
-    else:
-        print("Hiçbir ürün güncellenmedi.")
+
+print("Stok kontrolü tamamlandı.")
+
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=check_all_products_periodically, trigger="interval", minutes=60)
 scheduler.start()
+
+def mail_gonder(konu, mesaj):
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+
+    smtp_user = os.environ.get('EMAIL_SENDER')
+    smtp_pass = os.environ.get('EMAIL_PASSWORD')
+    alici_email = os.environ.get('EMAIL_RECEIVER')
+
+    if not smtp_user or not smtp_pass or not alici_email:
+        print("SMTP kullanıcı bilgileri veya alıcı bulunamadı, mail gönderilemiyor.")
+        return
+
+    msg = MIMEText(mesaj)
+    msg['Subject'] = konu
+    msg['From'] = smtp_user
+    msg['To'] = alici_email
+
+    try:
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(smtp_user, smtp_pass)
+            server.send_message(msg)
+        print(f"Mail gönderildi: {alici_email}")
+    except Exception as e:
+        print(f"Mail gönderme hatası: {e}")
+
+    
+    
 
 
 if __name__ == '__main__':
