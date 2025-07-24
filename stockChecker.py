@@ -13,6 +13,7 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import smtplib
 from email.mime.text import MIMEText
+import tempfile
 
 from flask import Flask, render_template, request, send_file
 from io import BytesIO
@@ -197,9 +198,11 @@ def save_product(product):
 
 def check_stock_zara(url):
     options = Options()
+    options.add_argument("--headless=new")  
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={temp_dir}")
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
