@@ -30,4 +30,4 @@ jobs:
         echo "EMAIL_RECEIVER=${{ secrets.EMAIL_RECEIVER }}" >> $GITHUB_ENV
 
     - name: Stok kontrolü scriptini çalıştır
-      run: python stock_checker.py
+      run: python python path/to/stock_check.py
