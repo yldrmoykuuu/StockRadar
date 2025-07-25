@@ -202,9 +202,7 @@ def check_stock_zara(url):
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--headless=new")  # yeni headless mod
-    #temp_dir = tempfile.mkdtemp()
-    temp_dir = tempfile.mkdtemp()
-    options.add_argument(f"--user-data-dir={temp_dir}")
+ 
   
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
