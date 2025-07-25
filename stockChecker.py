@@ -201,7 +201,7 @@ def check_stock_zara(url):
 
     options = Options()
    
-    options.add_argument("--headless=new")
+
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
@@ -218,15 +218,14 @@ def check_stock_zara(url):
         try:
             product_name = driver.find_element(
                 By.CSS_SELECTOR,
-                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__header > div.product-detail-info__header-content > h1'
+                '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__header > div > h1'
             ).text.strip()
         except NoSuchElementException:
             product_name = "Bilinmiyor"
 
         try:
             product_price = driver.find_element(
-                By.CSS_SELECTOR,
-                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
+                By.CSS_SELECTOR,'#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
             ).text.strip()
         except NoSuchElementException:
             product_price = "Bilinmiyor"
@@ -315,7 +314,6 @@ def index():
         url=url,
         stokta=stokta_filtered,
         stokta_degil=stokta_degil_filtered,
-      
         product_info=product_info,
         search=search
     )
@@ -378,7 +376,6 @@ def check_all_products_periodically():
                 continue
 
             if new_data["status"] != product.get("status"):
-                # Stok durumu değişmişse
                 hiç_değişmedi = False
                 updated_product = product.copy()
                 updated_product["status"] = new_data["status"]
@@ -387,8 +384,8 @@ def check_all_products_periodically():
                 değişen_ürünler.append(updated_product)
                 print(f"{url} güncellendi. Yeni durum: {updated_product['status']}")
             else:
-                # Stok durumu değişmemişse
                 print(f"{url} için stok durumu aynı: {product['status']}")
+
 
     if not hiç_değişmedi:
         konu = "📦 Stok Güncellemeleri"

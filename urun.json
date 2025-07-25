@@ -29,11 +29,11 @@
             "image": "https://static.zara.net/assets/public/5a2b/7007/6e5245e6b30a/4a8e4bdc5c6f/06164059406-1-p/06164059406-1-p.jpg?ts=1752244376723&w=713"
         },
         {
-            "url": "https://www.zara.com/tr/tr/agir-duz-tisort-p04424711.html?v1=466325646&origin=shopcart",
+            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
             "status": "stokta",
-            "name": "AĞIR DÜZ TİŞÖRT",
-            "price": "370,00 TL",
-            "image": "https://static.zara.net/assets/public/1315/3914/a6514c0083eb/05ab9a0d09cd/04424711300-e1/04424711300-e1.jpg?ts=1747231406751&w=713"
+            "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
+            "price": "720,00 TL",
+            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=713"
         }
     ],
     "stokta_degil": [
@@ -43,6 +43,27 @@
             "name": "OMUZ ÇANTASI",
             "price": "Bilinmiyor",
             "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=570"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-capraz-askili-canta-p11143530.html?v1=426955083",
+            "status": "stokta_degil",
+            "name": "HAYVAN DESENLİ ÇAPRAZ ASKILI ÇANTA",
+            "price": "Bilinmiyor",
+            "image": "https://static.zara.net/assets/public/3e63/eb0b/0e034f9ebeb9/9aece8d82b9c/11143530700-p/11143530700-p.jpg?ts=1734523453182&w=713"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/yari-uzun-boucle-kaban-p03046049.html?v1=410594600",
+            "status": "stokta_degil",
+            "name": "YARI UZUN BOUCLÉ KABAN",
+            "price": "Bilinmiyor",
+            "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=713"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/kapakli-kol-cantasi-p16565510.html?v1=410574990",
+            "status": "stokta_degil",
+            "name": "KAPAKLI KOL ÇANTASI",
+            "price": "Bilinmiyor",
+            "image": "https://static.zara.net/assets/public/0cc6/52cf/71d946e6b1aa/e827bb309050/16565510624-e1/16565510624-e1.jpg?ts=1737727289863&w=713"
         }
     ]
 }
