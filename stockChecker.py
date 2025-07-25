@@ -200,7 +200,7 @@ def check_stock_zara(url):
     options = Options()
  
     
-    options.add_argument("--headless")  # Başsız mod
+    
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
@@ -299,14 +299,7 @@ def index():
     stokta_filtered = filter_products(all_data.get("stokta", []))
     stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
 
-    if os.path.exists("yeni_durum.json"):
-        with open("yeni_durum.json", "r", encoding="utf-8") as f:
-            yeni_durum = json.load(f)
-        yeni_stokta = yeni_durum.get("yeni_stokta", [])
-        yeni_stokta_degil = yeni_durum.get("yeni_stokta_degil", [])
-    else:
-        yeni_stokta = []
-        yeni_stokta_degil = []
+   
 
     return render_template_string(
         HTML_TEMPLATE,
@@ -314,8 +307,7 @@ def index():
         url=url,
         stokta=stokta_filtered,
         stokta_degil=stokta_degil_filtered,
-        yeni_stokta=yeni_stokta,
-        yeni_stokta_degil=yeni_stokta_degil,
+      
         product_info=product_info,
         search=search
     )
@@ -365,10 +357,6 @@ def delete_product():
 def check_all_products_periodically():
     data = load_saved_products()
     değişen_ürünler = []
-    tüm_ürünler = []
-    global yeni_stokta, yeni_stokta_degil
-    yeni_stokta = []
-    yeni_stokta_degil = []
     hiç_değişmedi = True
 
     for category in ["stokta", "stokta_degil"]:
@@ -381,68 +369,35 @@ def check_all_products_periodically():
                 print(f"{url} için durum belirsiz veya hata var, atlanıyor.")
                 continue
 
-            eski_durum = product.get("status")
-            yeni_durum = new_data["status"]
-
-            # Güncel ürün bilgisini oluştur
-            updated_product = {
-                "url": url,
-                "status": yeni_durum,
-                "name": new_data.get("name") if new_data.get("name") != "Bilinmiyor" else product.get("name", "Bilinmiyor"),
-                "price": new_data.get("price") if new_data.get("price") != "Fiyat: Bilinmiyor" else product.get("price", "Fiyat: Bilinmiyor"),
-                "image": new_data.get("image", product.get("image", ""))
-            }
-
-            tüm_ürünler.append(updated_product)
-
-            if yeni_durum != eski_durum:
+            if new_data["status"] != product.get("status"):
+                # Stok durumu değişmişse
                 hiç_değişmedi = False
+                updated_product = product.copy()
+                updated_product["status"] = new_data["status"]
+                updated_product["price"] = new_data["price"]
+                save_product(updated_product)
                 değişen_ürünler.append(updated_product)
-                print(f"{url} güncellendi.")
+                print(f"{url} güncellendi. Yeni durum: {updated_product['status']}")
+            else:
+                # Stok durumu değişmemişse
+                print(f"{url} için stok durumu aynı: {product['status']}")
 
-                # Stok güncelleme takibi
-                if eski_durum == "stokta_degil" and yeni_durum == "stokta":
-                    yeni_stokta.append(updated_product)
-                elif eski_durum == "stokta" and yeni_durum == "stokta_degil":
-                    yeni_stokta_degil.append(updated_product)
-
-            # Her ürün kaydedilsin
-            save_product(updated_product)
-
-    # Mail içeriği
-    if hiç_değişmedi:
-        konu = "Stok Durumu: Değişiklik Yok"
-        mesaj = "🔄 Hiçbir ürünün stok durumu değişmedi.\n\n"
-    else:
+    if not hiç_değişmedi:
         konu = "📦 Stok Güncellemeleri"
-        mesaj = "Aşağıdaki ürünlerin stok durumu değişti:\n\n"
+        mesaj = "Aşağıdaki ürünlerde stok durumu değişti:\n\n"
         for p in değişen_ürünler:
             durum = "✔️ Stokta" if p["status"] == "stokta" else "❌ Stokta Değil"
             mesaj += f"🛍️ {p['name']}\nDurum: {durum}\nFiyat: {p['price']}\nURL: {p['url']}\n\n"
+        mail_gonder(konu, mesaj)
+    else:
+        print("🔄 Hiçbir ürünün stok durumu değişmedi.")
 
-    # Tüm ürünlerin güncel durumunu da mailin sonuna ekle
-    mesaj += "\n📋 Tüm Ürünlerin Güncel Durumu:\n\n"
-    for p in tüm_ürünler:
-        durum = "✔️ Stokta" if p["status"] == "stokta" else "❌ Stokta Değil"
-        mesaj += f"- {p['name']}: {durum}\n"
-
-    # Mail gönder
-    mail_gonder(konu, mesaj)
-
-    # Yeni stok gelenler ve tükenenler json'a yaz
-    with open("yeni_durum.json", "w", encoding="utf-8") as f:
-        json.dump({
-            "yeni_stokta": yeni_stokta,
-            "yeni_stokta_degil": yeni_stokta_degil
-        }, f, ensure_ascii=False, indent=2)
-
-    # Güncel stok verisi ana dosyaya yazılır
+    # Güncellenmiş listeyi yeniden kaydet
+    güncel_veri = load_saved_products()
     with open("urun.json", "w", encoding="utf-8") as f:
-        json.dump({"stokta": [p for p in tüm_ürünler if p["status"] == "stokta"],
-                   "stokta_degil": [p for p in tüm_ürünler if p["status"] == "stokta_degil"]},
-                  f, ensure_ascii=False, indent=2)
+        json.dump(güncel_veri, f, ensure_ascii=False, indent=2)
 
-    print("Stok kontrolü tamamlandı.")
+    print("✅ Stok kontrolü tamamlandı.")
 
 
 
