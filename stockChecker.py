@@ -1,6 +1,6 @@
 import json
 import os
-from flask import Flask, render_template_string, request, jsonify
+from flask import Flask, render_template_string, request, jsonify, send_file
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -14,14 +14,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import smtplib
 from email.mime.text import MIMEText
 import tempfile
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-
-from flask import Flask, render_template, request, send_file
-from io import BytesIO
 
 app = Flask(__name__)
 JSON_FILE = "urun.json"
@@ -91,64 +83,64 @@ HTML_TEMPLATE = """
         <p><strong>Sonuç:</strong> {{ result }}</p>
     {% endif %}
 
-   <div class="container">
-    <div class="column">
-        <h3>✔️ Stokta Olan Ürünler</h3>
-        {% for product in stokta %}
-            <div class="product">
-                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-                <img src="{{ product.image }}" alt="Resim Yok">
-                <p><strong>{{ product.name }}</strong></p>
-                <p>{{ product.price }}</p>
-               
-                <a href="{{ product.url }}" target="_blank">Link</a>
-            </div>
-        {% endfor %}
-    </div>
+    <div class="container">
+        <div class="column">
+            <h3>✔️ Stokta Olan Ürünler</h3>
+            {% for product in stokta %}
+                <div class="product">
+                    <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+                    <img src="{{ product.image }}" alt="Resim Yok">
+                    <p><strong>{{ product.name }}</strong></p>
+                    <p>{{ product.price }}</p>
+                    <a href="{{ product.url }}" target="_blank">Link</a>
+                </div>
+            {% endfor %}
+        </div>
 
-    <div class="column">
-        <h3>❌ Stokta Olmayan Ürünler</h3>
-        {% for product in stokta_degil %}
-            <div class="product">
-                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-                <img src="{{ product.image }}" alt="Resim Yok">
-                <p><strong>{{ product.name }}</strong></p>
-                <p>{{ product.price }}</p>
-               
-                <a href="{{ product.url }}" target="_blank">Link</a>
-            </div>
-        {% endfor %}
-    </div>
+        <div class="column">
+            <h3>❌ Stokta Olmayan Ürünler</h3>
+            {% for product in stokta_degil %}
+                <div class="product">
+                    <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+                    <img src="{{ product.image }}" alt="Resim Yok">
+                    <p><strong>{{ product.name }}</strong></p>
+                    <p>{{ product.price }}</p>
+                    <a href="{{ product.url }}" target="_blank">Link</a>
+                </div>
+            {% endfor %}
+        </div>
 
-    <div class="column">
-        <h3>🆕 Yeni Stoğa Giren Ürünler</h3>
-        {% for product in yeni_stokta %}
-            <div class="product">
-                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-                <img src="{{ product.image }}" alt="Resim Yok">
-                <p><strong>{{ product.name }}</strong></p>
-                <p>{{ product.price }}</p>
-               
-                <a href="{{ product.url }}" target="_blank">Link</a>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="column">
-        <h3>📉 Yeni Stoğu Tükenen Ürünler</h3>
-        {% for product in yeni_stokta_degil %}
-            <div class="product">
-                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-                <img src="{{ product.image }}" alt="Resim Yok">
-                <p><strong>{{ product.name }}</strong></p>
-                <p>{{ product.price }}</p>
-              
-                <a href="{{ product.url }}" target="_blank">Link</a>
-            </div>
-        {% endfor %}
-    </div>
+       <div class="column">
+    <h3>🆕 Yeni Stoğa Giren Ürünler</h3>
+    {% for product in yeni_stokta %}
+        <div class="product">
+            <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+            <img src="{{ product.image }}" alt="Resim Yok">
+            <p><strong>{{ product.name }}</strong></p>
+            <p>{{ product.price }}</p>
+            <p><small>Güncellenme: {{ product.last_updated }}</small></p>
+            <a href="{{ product.url }}" target="_blank">Link</a>
+        </div>
+    {% else %}
+        <p>Yeni stoğa giren ürün bulunmamaktadır.</p>
+    {% endfor %}
 </div>
 
+<div class="column">
+    <h3>📉 Yeni Stoğu Tükenen Ürünler</h3>
+    {% for product in yeni_stokta_degil %}
+        <div class="product">
+            <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+            <img src="{{ product.image }}" alt="Resim Yok">
+            <p><strong>{{ product.name }}</strong></p>
+            <p>{{ product.price }}</p>
+            <p><small>Güncellenme: {{ product.last_updated }}</small></p>
+            <a href="{{ product.url }}" target="_blank">Link</a>
+        </div>
+    {% else %}
+        <p>Yeni stoğu tükenen ürün bulunmamaktadır.</p>
+    {% endfor %}
+</div>
 
 <script>
 function deleteProduct(url) {
@@ -157,7 +149,6 @@ function deleteProduct(url) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-                // CSRF varsa ekle: 'X-CSRFToken': '...' 
             },
             body: JSON.stringify({ url: url })
         }).then(response => {
@@ -187,16 +178,12 @@ def load_saved_products():
     except Exception:
         return {"stokta": [], "stokta_degil": [], "yeni_stokta": [], "yeni_stokta_degil": []}
 
-
 def save_product(product):
     data = load_saved_products()
 
     data["stokta"] = [p for p in data["stokta"] if p["url"] != product["url"]]
     data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != product["url"]]
 
-   
-
-    
     if product["status"] == "stokta":
         data["stokta"].append(product)
     elif product["status"] == "stokta_degil":
@@ -206,18 +193,13 @@ def save_product(product):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 def check_stock_zara(url):
-    
-
     options = Options()
-    
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--headless=new")  
+   
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-  
-
 
     try:
         driver.get(url)
@@ -232,7 +214,8 @@ def check_stock_zara(url):
 
         try:
             product_price = driver.find_element(
-                By.CSS_SELECTOR,'#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
+                By.CSS_SELECTOR,
+                '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
             ).text.strip()
         except NoSuchElementException:
             product_price = "Bilinmiyor"
@@ -312,8 +295,8 @@ def index():
 
     stokta_filtered = filter_products(all_data.get("stokta", []))
     stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
-
-   
+    yeni_stokta_filtered = filter_products(all_data.get("yeni_stokta", []))
+    yeni_stokta_degil_filtered = filter_products(all_data.get("yeni_stokta_degil", []))
 
     return render_template_string(
         HTML_TEMPLATE,
@@ -322,10 +305,11 @@ def index():
         stokta=stokta_filtered,
         stokta_degil=stokta_degil_filtered,
         product_info=product_info,
-         yeni_stokta=load_saved_products().get("yeni_stokta", []),
-        yeni_stokta_degil=load_saved_products().get("yeni_stokta_degil", []),
+        yeni_stokta=yeni_stokta_filtered,
+        yeni_stokta_degil=yeni_stokta_degil_filtered,
         search=search
     )
+
 @app.route('/export_excel')
 def export_excel():
     all_data = load_saved_products()
@@ -367,7 +351,7 @@ def delete_product():
     else:
         return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
 
-
+# ... (diğer importlar aynı)
 
 def check_all_products_periodically():
     data = load_saved_products()
@@ -393,30 +377,37 @@ def check_all_products_periodically():
                     "name": new_data.get("name", product["name"]),
                     "price": new_data.get("price", product["price"]),
                     "image": new_data.get("image", product["image"]),
-                    "status": new_status
+                    "status": new_status,
+                    "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 }
                 save_product(updated_product)
 
                 if new_status == "stokta" and prev_status == "stokta_degil":
                     yeni_stokta.append(updated_product)
+                    print(f"🆕 Yeni stok: {updated_product['name']}")
                 elif new_status == "stokta_degil" and prev_status == "stokta":
                     yeni_stokta_degil.append(updated_product)
-    with open(JSON_FILE, "r+", encoding="utf-8") as f:
-        data = json.load(f)
-        data["yeni_stokta"] = yeni_stokta
-        data["yeni_stokta_degil"] = yeni_stokta_degil
-        f.seek(0)
-        json.dump(data, f, indent=4, ensure_ascii=False)
-        f.truncate()
-   
+                    print(f"📉 Stok tükendi: {updated_product['name']}")
 
-
-
+    # Yeni stok durumlarını kaydet
+    current_data = load_saved_products()
+    current_data["yeni_stokta"] = yeni_stokta
+    current_data["yeni_stokta_degil"] = yeni_stokta_degil
     
+    with open(JSON_FILE, "w", encoding="utf-8") as f:
+        json.dump(current_data, f, indent=4, ensure_ascii=False)
     
+    return current_data
+
+# ... (diğer kodlar aynı)
+
+           
 
 if __name__ == '__main__':
     if os.environ.get("GITHUB_ACTIONS") == "true":
         check_all_products_periodically()
     else:
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(check_all_products_periodically, 'interval', hours=1)
+        scheduler.start()
         app.run(debug=True)

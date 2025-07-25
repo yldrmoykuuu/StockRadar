@@ -11,23 +11,35 @@ jobs:
 
     steps:
       - name: Repo'yu klonla
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # Sonraki push işlemi için gerekli
 
       - name: Python'ı kur
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Gereken kütüphaneleri yükle
+      - name: Bağımlılıkları yükle
         run: |
-          pip install -r requirements.txt
-          
+          python -m pip install --upgrade pip
+          pip install flask selenium webdriver-manager pandas openpyxl apscheduler
 
-      - name: Ortam değişkenlerini ayarla ve scripti çalıştır
+      - name: Chrome ve ChromeDriver kur
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+
+      - name: Stok kontrolünü çalıştır
         env:
           GITHUB_ACTIONS: "true"
-          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
         run: |
           python stockChecker.py
+
+      - name: Değişiklikleri kaydet ve pushla
+        if: always()
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add urun.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Stok durumu otomatik güncelleme [skip ci]" && git push)
