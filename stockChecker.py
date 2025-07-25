@@ -197,11 +197,11 @@ def save_product(product):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 def check_stock_zara(url):
-    temp_profile = tempfile.mkdtemp()
+    
 
     options = Options()
    
-    options.add_argument("--headless=new")
+   
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")

@@ -27,6 +27,13 @@
             "name": "Z.02 STRAIGHT ANKLE YÜKSEK BEL JEAN",
             "price": "1.590,00 TL",
             "image": "https://static.zara.net/assets/public/5a2b/7007/6e5245e6b30a/4a8e4bdc5c6f/06164059406-1-p/06164059406-1-p.jpg?ts=1752244376723&w=713"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/agir-duz-tisort-p04424711.html?v1=466325646&origin=shopcart",
+            "status": "stokta",
+            "name": "AĞIR DÜZ TİŞÖRT",
+            "price": "370,00 TL",
+            "image": "https://static.zara.net/assets/public/1315/3914/a6514c0083eb/05ab9a0d09cd/04424711300-e1/04424711300-e1.jpg?ts=1747231406751&w=713"
         }
     ],
     "stokta_degil": [
@@ -36,13 +43,6 @@
             "name": "OMUZ ÇANTASI",
             "price": "Bilinmiyor",
             "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=570"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
-            "status": "stokta_degil",
-            "name": "Bilinmiyor",
-            "price": "Bilinmiyor",
-            "image": ""
         }
     ]
 }
