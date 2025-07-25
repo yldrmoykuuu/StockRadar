@@ -200,7 +200,7 @@ def check_stock_zara(url):
     temp_profile = tempfile.mkdtemp()
 
     options = Options()
-    options.add_argument(f"--user-data-dir={temp_profile}")  
+   
    
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
