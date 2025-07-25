@@ -209,11 +209,12 @@ def check_stock_zara(url):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    driver_path = "/usr/bin/chromedriver"
+    service = Service(executable_path=driver_path)
+
+    driver = webdriver.Chrome(service=service, options=options)
   
 
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
-   
 
     try:
         driver.get(url)
@@ -365,8 +366,8 @@ def delete_product():
 
 def check_all_products_periodically():
     data = load_saved_products()
-    değişen_ürünler = []
-    hiç_değişmedi = True
+    yeni_stokta = []
+    yeni_stokta_degil = []
 
     for category in ["stokta", "stokta_degil"]:
         for product in data[category]:
@@ -375,35 +376,45 @@ def check_all_products_periodically():
             new_data = check_stock_zara(url)
 
             if "hata:" in new_data.get("status", "") or new_data.get("status") == "belirsiz":
-                print(f"{url} için durum belirsiz veya hata var, atlanıyor.")
+                print(f"{url} durumu belirsiz, atlandı.")
                 continue
 
-            if new_data["status"] != product.get("status"):
-                hiç_değişmedi = False
-                updated_product = product.copy()
-                updated_product["status"] = new_data["status"]
-                updated_product["price"] = new_data["price"]
+            prev_status = product.get("status")
+            new_status = new_data["status"]
+
+            if new_status != prev_status:
+                updated_product = {
+                    "url": url,
+                    "name": new_data.get("name", product["name"]),
+                    "price": new_data.get("price", product["price"]),
+                    "image": new_data.get("image", product["image"]),
+                    "status": new_status
+                }
                 save_product(updated_product)
-                değişen_ürünler.append(updated_product)
-                print(f"{url} güncellendi. Yeni durum: {updated_product['status']}")
-            else:
-                print(f"{url} için stok durumu aynı: {product['status']}")
 
+                if new_status == "stokta" and prev_status == "stokta_degil":
+                    yeni_stokta.append(updated_product)
+                elif new_status == "stokta_degil" and prev_status == "stokta":
+                    yeni_stokta_degil.append(updated_product)
 
-    if not hiç_değişmedi:
-        konu = "📦 Stok Güncellemeleri"
-        mesaj = "Aşağıdaki ürünlerde stok durumu değişti:\n\n"
-        for p in değişen_ürünler:
-            durum = "✔️ Stokta" if p["status"] == "stokta" else "❌ Stokta Değil"
-            mesaj += f"🛍️ {p['name']}\nDurum: {durum}\nFiyat: {p['price']}\nURL: {p['url']}\n\n"
+    # Eğer değişen bir ürün varsa e-posta gönder
+    if yeni_stokta or yeni_stokta_degil:
+        konu = "📦 Zara Stok Değişiklikleri"
+        mesaj = ""
+
+        if yeni_stokta:
+            mesaj += "🆕 Yeni Stoğa Giren Ürünler:\n"
+            for p in yeni_stokta:
+                mesaj += f"- {p['name']} | {p['price']}\n  {p['url']}\n\n"
+
+        if yeni_stokta_degil:
+            mesaj += "📉 Stoğu Tükenen Ürünler:\n"
+            for p in yeni_stokta_degil:
+                mesaj += f"- {p['name']} | {p['price']}\n  {p['url']}\n\n"
+
         mail_gonder(konu, mesaj)
     else:
-        print("🔄 Hiçbir ürünün stok durumu değişmedi.")
-
-    # Güncellenmiş listeyi yeniden kaydet
-    güncel_veri = load_saved_products()
-    with open("urun.json", "w", encoding="utf-8") as f:
-        json.dump(güncel_veri, f, ensure_ascii=False, indent=2)
+        print("🔄 Hiçbir ürünün durumu değişmedi.")
 
     print("✅ Stok kontrolü tamamlandı.")
 
