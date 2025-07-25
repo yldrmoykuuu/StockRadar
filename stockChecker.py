@@ -406,16 +406,16 @@ def check_all_products_periodically():
             mesaj += f"🛍️ {p['name']}\nDurum: {durum}\nFiyat: {p['price']}\nURL: {p['url']}\n\n"
 
     mail_gonder(konu, mesaj)
-    with open ("yeni_durum.json","w",encoding="utf-8") as f:
-        json.dump({"yeni_stokta":yeni_stokta,"yeni_stokta_degil":yeni_stokta_degil},f,ensure_ascii=False,indent=2) 
+  # Yeni stok durumlarını json dosyasına yaz
+    with open("yeni_durum.json", "w", encoding="utf-8") as f:
+        json.dump({"yeni_stokta": yeni_stokta, "yeni_stokta_degil": yeni_stokta_degil}, f, ensure_ascii=False, indent=2)
 
-    
+    # Güncellenmiş ana stok listesini tekrar yaz (önemli)
+    güncel_veri = load_saved_products()
+    with open("urun.json", "w", encoding="utf-8") as f:
+        json.dump(güncel_veri, f, ensure_ascii=False, indent=2)
+
     print("Stok kontrolü tamamlandı.")
-    
-updated_data = load_saved_products()
-with open("urun.json", "w", encoding="utf-8") as f:
-  json.dump({"stokta": stokta, "stokta_degil": stokta_degil}, f, ensure_ascii=False, indent=2)
-
 
 
 
