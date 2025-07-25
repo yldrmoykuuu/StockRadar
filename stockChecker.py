@@ -411,6 +411,11 @@ def check_all_products_periodically():
 
     
     print("Stok kontrolü tamamlandı.")
+    
+updated_data = load_saved_products()
+with open("urun.json", "w", encoding="utf-8") as f:
+  json.dump({"stokta": stokta, "stokta_degil": stokta_degil}, f, ensure_ascii=False, indent=2)
+
 
 
 
