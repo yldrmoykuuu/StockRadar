@@ -13,6 +13,13 @@
             "name": "CHARM BABET",
             "price": "1.090,00 TL",
             "image": "https://static.zara.net/assets/public/d3ef/7d4e/ce71472583ff/8b7576f5a6ed/01165768306-101-a2/01165768306-101-a2.jpg?ts=1751539018642&w=713"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/desenli-bandana-p00653625.html?v1=471620295",
+            "status": "stokta",
+            "name": "DESENLİ BANDANA",
+            "price": "450,00 TL",
+            "image": "https://static.zara.net/assets/public/0f10/c12a/ca5f47208593/48e6a8389665/00653625400-e1/00653625400-e1.jpg?ts=1749468711238&w=713"
         }
     ],
     "stokta_degil": [
@@ -22,6 +29,13 @@
             "name": "OMUZ ÇANTASI",
             "price": "Bilinmiyor",
             "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=570"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/duz-renkli-orta-agirlikli-t-shirt-p01887602.html?v1=477596105",
+            "status": "stokta_degil",
+            "name": "Bilinmiyor",
+            "price": "Bilinmiyor",
+            "image": ""
         }
     ]
 }

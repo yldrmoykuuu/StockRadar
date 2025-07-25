@@ -197,19 +197,18 @@ def save_product(product):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 def check_stock_zara(url):
+    temp_profile = tempfile.mkdtemp()
+
     options = Options()
- 
-    
-    
+    options.add_argument(f"--user-data-dir={temp_profile}")  # ÖNEMLİ!
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    
- 
-   
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-infobars")
 
-  
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
@@ -217,17 +216,26 @@ def check_stock_zara(url):
         driver.get(url)
 
         try:
-            product_name = driver.find_element(By.CSS_SELECTOR, '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__header > div.product-detail-info__header-content > h1').text.strip()
+            product_name = driver.find_element(
+                By.CSS_SELECTOR,
+                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__header > div.product-detail-info__header-content > h1'
+            ).text.strip()
         except NoSuchElementException:
             product_name = "Bilinmiyor"
 
         try:
-            product_price = driver.find_element(By.CSS_SELECTOR, '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span').text.strip()
+            product_price = driver.find_element(
+                By.CSS_SELECTOR,
+                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
+            ).text.strip()
         except NoSuchElementException:
             product_price = "Bilinmiyor"
 
         try:
-            product_img = driver.find_element(By.CSS_SELECTOR, '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-image-wrapper > button > div > div > picture > img').get_attribute('src')
+            product_img = driver.find_element(
+                By.CSS_SELECTOR,
+                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-image-wrapper > button > div > div > picture > img'
+            ).get_attribute('src')
         except NoSuchElementException:
             product_img = ""
 
@@ -249,11 +257,11 @@ def check_stock_zara(url):
             "name": product_name,
             "price": product_price,
             "image": product_img,
-            
         }
 
     except Exception as e:
         return {"status": f"hata: {e}"}
+
     finally:
         driver.quit()
 
