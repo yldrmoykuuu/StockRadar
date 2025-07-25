@@ -33,7 +33,7 @@
             "status": "stokta",
             "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
             "price": "720,00 TL",
-            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=713"
+            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=570"
         }
     ],
     "stokta_degil": [
@@ -57,13 +57,8 @@
             "name": "YARI UZUN BOUCLÉ KABAN",
             "price": "Bilinmiyor",
             "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=713"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/kapakli-kol-cantasi-p16565510.html?v1=410574990",
-            "status": "stokta_degil",
-            "name": "Bilinmiyor",
-            "price": "Bilinmiyor",
-            "image": ""
         }
-    ]
+    ],
+    "yeni_stokta": [],
+    "yeni_stokta_degil": []
 }

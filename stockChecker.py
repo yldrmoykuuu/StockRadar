@@ -177,12 +177,16 @@ function deleteProduct(url) {
 
 def load_saved_products():
     if not os.path.exists(JSON_FILE):
-        return {"stokta": [], "stokta_degil": []}
+        return {"stokta": [], "stokta_degil": [], "yeni_stokta": [], "yeni_stokta_degil": []}
     try:
         with open(JSON_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            data.setdefault("yeni_stokta", [])
+            data.setdefault("yeni_stokta_degil", [])
+            return data
     except Exception:
-        return {"stokta": [], "stokta_degil": []}
+        return {"stokta": [], "stokta_degil": [], "yeni_stokta": [], "yeni_stokta_degil": []}
+
 
 def save_product(product):
     data = load_saved_products()
@@ -205,14 +209,13 @@ def check_stock_zara(url):
     
 
     options = Options()
-    options.add_argument("--headless")
+    
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    driver_path = "/usr/bin/chromedriver"
-    service = Service(executable_path=driver_path)
 
-    driver = webdriver.Chrome(service=service, options=options)
+    # WebDriver otomatik yüklensin:
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
   
 
 
@@ -319,6 +322,8 @@ def index():
         stokta=stokta_filtered,
         stokta_degil=stokta_degil_filtered,
         product_info=product_info,
+         yeni_stokta=load_saved_products().get("yeni_stokta", []),
+        yeni_stokta_degil=load_saved_products().get("yeni_stokta_degil", []),
         search=search
     )
 @app.route('/export_excel')
@@ -396,55 +401,16 @@ def check_all_products_periodically():
                     yeni_stokta.append(updated_product)
                 elif new_status == "stokta_degil" and prev_status == "stokta":
                     yeni_stokta_degil.append(updated_product)
-
-    # Eğer değişen bir ürün varsa e-posta gönder
-    if yeni_stokta or yeni_stokta_degil:
-        konu = "📦 Zara Stok Değişiklikleri"
-        mesaj = ""
-
-        if yeni_stokta:
-            mesaj += "🆕 Yeni Stoğa Giren Ürünler:\n"
-            for p in yeni_stokta:
-                mesaj += f"- {p['name']} | {p['price']}\n  {p['url']}\n\n"
-
-        if yeni_stokta_degil:
-            mesaj += "📉 Stoğu Tükenen Ürünler:\n"
-            for p in yeni_stokta_degil:
-                mesaj += f"- {p['name']} | {p['price']}\n  {p['url']}\n\n"
-
-        mail_gonder(konu, mesaj)
-    else:
-        print("🔄 Hiçbir ürünün durumu değişmedi.")
-
-    print("✅ Stok kontrolü tamamlandı.")
+    with open(JSON_FILE, "r+", encoding="utf-8") as f:
+        data = json.load(f)
+        data["yeni_stokta"] = yeni_stokta
+        data["yeni_stokta_degil"] = yeni_stokta_degil
+        f.seek(0)
+        json.dump(data, f, indent=4, ensure_ascii=False)
+        f.truncate()
+   
 
 
-
-def mail_gonder(konu, mesaj):
-    smtp_server = 'smtp.gmail.com'
-    smtp_port = 587
-
-    smtp_user = os.environ.get('EMAIL_SENDER')
-    smtp_pass = os.environ.get('EMAIL_PASSWORD')
-    alici_email = os.environ.get('EMAIL_RECEIVER')
-
-    if not smtp_user or not smtp_pass or not alici_email:
-        print("SMTP kullanıcı bilgileri veya alıcı bulunamadı, mail gönderilemiyor.")
-        return
-
-    msg = MIMEText(mesaj)
-    msg['Subject'] = konu
-    msg['From'] = smtp_user
-    msg['To'] = alici_email
-
-    try:
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.starttls()
-            server.login(smtp_user, smtp_pass)
-            server.send_message(msg)
-        print(f"Mail gönderildi: {alici_email}")
-    except Exception as e:
-        print(f"Mail gönderme hatası: {e}")
 
     
     
