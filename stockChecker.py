@@ -180,10 +180,12 @@ def load_saved_products():
 
 def save_product(product):
     data = load_saved_products()
-
-    data["stokta"] = [p for p in data["stokta"] if p["url"] != product["url"]]
-    data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != product["url"]]
-
+    
+    # Remove product from all categories if it exists
+    for category in ["stokta", "stokta_degil", "yeni_stokta", "yeni_stokta_degil"]:
+        data[category] = [p for p in data[category] if p["url"] != product["url"]]
+    
+    # Add product to the appropriate category
     if product["status"] == "stokta":
         data["stokta"].append(product)
     elif product["status"] == "stokta_degil":
@@ -197,7 +199,11 @@ def check_stock_zara(url):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-   
+    options.add_argument("--headless=new")  # Headless mod özellikle GitHub Actions için
+
+    # Bu satır: her tarayıcı başlatımında benzersiz user data dizini yaratır
+    user_data_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={user_data_dir}")
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
@@ -351,7 +357,6 @@ def delete_product():
     else:
         return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
 
-# ... (diğer importlar aynı)
 
 def check_all_products_periodically():
     data = load_saved_products()
@@ -398,8 +403,6 @@ def check_all_products_periodically():
         json.dump(current_data, f, indent=4, ensure_ascii=False)
     
     return current_data
-
-# ... (diğer kodlar aynı)
 
            
 
