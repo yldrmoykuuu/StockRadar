@@ -199,11 +199,7 @@ def check_stock_zara(url):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--headless=new")  # Headless mod özellikle GitHub Actions için
-
-    # Bu satır: her tarayıcı başlatımında benzersiz user data dizini yaratır
-    user_data_dir = tempfile.mkdtemp()
-    options.add_argument(f"--user-data-dir={user_data_dir}")
+    
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
