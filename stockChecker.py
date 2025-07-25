@@ -198,9 +198,10 @@ def save_product(product):
 
 def check_stock_zara(url):
     options = Options()
-    options.add_argument("--headless=new")  
+ 
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    
     temp_dir = tempfile.mkdtemp()
     options.add_argument(f"--user-data-dir={temp_dir}")
     service = Service(ChromeDriverManager().install())
@@ -347,7 +348,7 @@ def delete_product():
 def check_all_products_periodically():
     data = load_saved_products()
     değişen_ürünler = []
-    hiç_değişmedi = True  # Başta değişiklik yok gibi kabul et
+    hiç_değişmedi = True
 
     for category in ["stokta", "stokta_degil"]:
         for product in data[category]:
@@ -361,18 +362,20 @@ def check_all_products_periodically():
 
             if new_data["status"] != product.get("status"):
                 hiç_değişmedi = False
-                product_update = {
+
+                # Eğer yeni veri bilinmiyorsa eskiyi kullan
+                updated_product = {
                     "url": url,
                     "status": new_data["status"],
-                    "name": new_data.get("name", product.get("name", "Bilinmiyor")),
-                    "price": new_data.get("price", product.get("price", "Bilinmiyor")),
+                    "name": new_data.get("name") if new_data.get("name") != "Bilinmiyor" else product.get("name", "Bilinmiyor"),
+                    "price": new_data.get("price") if new_data.get("price") != "Fiyat: Bilinmiyor" else product.get("price", "Fiyat: Bilinmiyor"),
                     "image": new_data.get("image", product.get("image", ""))
                 }
-                save_product(product_update)
-                değişen_ürünler.append(product_update)
+
+                save_product(updated_product)
+                değişen_ürünler.append(updated_product)
                 print(f"{url} güncellendi.")
 
-    # E-posta gönder
     if hiç_değişmedi:
         konu = "Stok Durumu: Değişiklik Yok"
         mesaj = "🔄 Hiçbir ürünün stok durumu değişmedi."
