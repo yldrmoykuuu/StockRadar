@@ -1,12 +1,20 @@
 {
-    "stokta": [],
-    "stokta_degil": [
+    "stokta": [
         {
             "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
+            "status": "stokta",
+            "name": "KONTRAST İŞLEMELİ CEKET",
+            "price": "1.690,00 TL",
+            "image": "https://static.zara.net/assets/public/c5fb/a5de/e65b4c1a9641/d5e2c0377836/02298026064-p/02298026064-p.jpg?ts=1752834746494&w=570"
+        }
+    ],
+    "stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
             "status": "stokta_degil",
-            "name": "Bilinmiyor",
+            "name": "OMUZ ÇANTASI",
             "price": "Bilinmiyor",
-            "image": ""
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=570"
         }
     ]
 }
