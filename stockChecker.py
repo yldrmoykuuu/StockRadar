@@ -293,12 +293,23 @@ def index():
     stokta_filtered = filter_products(all_data.get("stokta", []))
     stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
 
+    if os.path.exists("yeni_durum.json"):
+        with open("yeni_durum.json", "r", encoding="utf-8") as f:
+            yeni_durum = json.load(f)
+        yeni_stokta = yeni_durum.get("yeni_stokta", [])
+        yeni_stokta_degil = yeni_durum.get("yeni_stokta_degil", [])
+    else:
+        yeni_stokta = []
+        yeni_stokta_degil = []
+
     return render_template_string(
         HTML_TEMPLATE,
         result=result,
         url=url,
         stokta=stokta_filtered,
         stokta_degil=stokta_degil_filtered,
+        yeni_stokta=yeni_stokta,
+        yeni_stokta_degil=yeni_stokta_degil,
         product_info=product_info,
         search=search
     )
@@ -348,6 +359,9 @@ def delete_product():
 def check_all_products_periodically():
     data = load_saved_products()
     değişen_ürünler = []
+    global yeni_stokta, yeni_stokta_degil
+    yeni_stokta = []
+    yeni_stokta_degil = []
     hiç_değişmedi = True
 
     for category in ["stokta", "stokta_degil"]:
@@ -374,6 +388,11 @@ def check_all_products_periodically():
 
                 save_product(updated_product)
                 değişen_ürünler.append(updated_product)
+                if product["status"] == "stokta_degil" and new_data["status"] == "stokta":
+                    yeni_stokta.append(updated_product)
+                elif product["status"] == "stokta" and new_data["status"] == "stokta_degil":
+                    yeni_stokta_degil.append(updated_product)
+
                 print(f"{url} güncellendi.")
 
     if hiç_değişmedi:
@@ -387,6 +406,10 @@ def check_all_products_periodically():
             mesaj += f"🛍️ {p['name']}\nDurum: {durum}\nFiyat: {p['price']}\nURL: {p['url']}\n\n"
 
     mail_gonder(konu, mesaj)
+    with open ("yeni_durum.json","w",encoding="utf-8") as f:
+        json.dump({"yeni_stokta":yeni_stokta,"yeni_stokta_degil":yeni_stokta_degil},f,ensure_ascii=False,indent=2) 
+
+    
     print("Stok kontrolü tamamlandı.")
 
 
