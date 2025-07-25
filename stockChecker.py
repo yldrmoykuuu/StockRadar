@@ -203,6 +203,8 @@ def check_stock_zara(url):
     options.add_argument("--disable-dev-shm-usage")
     
     #temp_dir = tempfile.mkdtemp()
+    temp_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={temp_dir}")
   
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
