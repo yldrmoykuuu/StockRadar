@@ -213,8 +213,8 @@ def check_stock_zara(url):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--headless=new")  
 
-    # WebDriver otomatik yüklensin:
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
   
 
