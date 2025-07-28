@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "stokta": [
         {
             "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
@@ -36,6 +37,9 @@
             "image": "https://static.zara.net/assets/public/5a2b/7007/6e5245e6b30a/4a8e4bdc5c6f/06164059406-1-p/06164059406-1-p.jpg?ts=1752244376723&w=713"
         }
     ],
+=======
+    "stokta": [],
+>>>>>>> 4e073062cfa81586be87d06cb43c9713e8508974
     "stokta_degil": [
         {
             "url": "https://www.zara.com/tr/tr/hayvan-desenli-capraz-askili-canta-p11143530.html?v1=426955083",
@@ -50,6 +54,46 @@
             "name": "YARI UZUN BOUCLÉ KABAN",
             "price": "Bilinmiyor",
             "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=713"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
+            "name": "Bilinmiyor",
+            "price": "Bilinmiyor",
+            "image": "",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-25 11:46:13"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/charm-babet-p12505630.html?v1=471948271",
+            "name": "Bilinmiyor",
+            "price": "Bilinmiyor",
+            "image": "",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-25 11:46:13"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/desenli-bandana-p00653625.html?v1=471620295",
+            "name": "Bilinmiyor",
+            "price": "Bilinmiyor",
+            "image": "",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-25 11:46:14"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/z-02-straight-ankle-yuksek-bel-jean-p06164059.html?v1=475480448&v2=2546081&origin=shopcart",
+            "name": "Bilinmiyor",
+            "price": "Bilinmiyor",
+            "image": "",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-25 11:46:15"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
+            "name": "Bilinmiyor",
+            "price": "Bilinmiyor",
+            "image": "",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-25 11:46:15"
         }
     ],
     "yeni_stokta": [],
