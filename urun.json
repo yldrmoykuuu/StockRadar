@@ -54,24 +54,6 @@
             "last_updated": "2025-07-28 09:07:05"
         }
     ],
-    "yeni_stokta": [
-        {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "name": "OMUZ ÇANTASI",
-            "price": "1.290,00 TL\n990,00 TL",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=710",
-            "status": "stokta",
-            "last_updated": "2025-07-28 09:07:12"
-        }
-    ],
-    "yeni_stokta_degil": [
-        {
-            "url": "https://www.zara.com/tr/tr/hayvan-desenli-tokali-babet-p13505510.html?v1=410585749&v2=2367760",
-            "name": "HAYVAN DESENLİ TOKALI BABET",
-            "price": "790,00 TL\n590,00 TL",
-            "image": "https://static.zara.net/assets/public/e4cb/77b9/d26b40378bf7/0fab7605cbce/13505510194-e1/13505510194-e1.jpg?ts=1737040180852&w=710",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-28 09:07:05"
-        }
-    ]
+    "yeni_stokta": [],
+    "yeni_stokta_degil": []
 }
