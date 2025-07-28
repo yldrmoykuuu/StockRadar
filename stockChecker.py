@@ -11,13 +11,15 @@ import pandas as pd
 from io import BytesIO
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-import smtplib
+
 from email.mime.text import MIMEText
 import tempfile
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 load_dotenv()
+import smtplib
+from email.mime.text import MIMEText
 
 
 
@@ -437,10 +439,22 @@ def check_all_products_periodically():
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(current_data, f, indent=4, ensure_ascii=False)
     
+    if not yeni_stokta and not yeni_stokta_degil:
+        print("✅ Stok güncellemesi yok.")
+        send_email(
+            subject="Stok Güncellemesi: Değişiklik Yok",
+            body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır."
+        )
+
+
     return current_data
 
 
 def send_email(subject, body, to_email=EMAIL_RECEIVER):
+  
+    import smtplib
+    from email.mime.text import MIMEText
+
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
@@ -458,6 +472,8 @@ def send_email(subject, body, to_email=EMAIL_RECEIVER):
         print("Mail başarıyla gönderildi.")
     except Exception as e:
         print(f"Mail gönderme hatası: {e}")
+      
+
 
            
 

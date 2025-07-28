@@ -1,22 +1,29 @@
 {
-  "stokta": [
-    {
-      "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
-      "status": "stokta",
-      "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
-      "price": "720,00 TL",
-      "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704"
-    }
-  ],
-  "stokta_degil": [
-    {
-      "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-      "status": "stokta_degil",
-      "name": "OMUZ ÇANTASI",
-      "price": "Bilinmiyor",
-      "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
-    }
-  ],
-  "yeni_stokta": [],
-  "yeni_stokta_degil": []
+    "stokta": [
+        {
+            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
+            "status": "stokta",
+            "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
+            "price": "720,00 TL",
+            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/desenli-bandana-p00653625.html?v1=471620295",
+            "status": "stokta",
+            "name": "DESENLİ BANDANA",
+            "price": "450,00 TL",
+            "image": "https://static.zara.net/assets/public/0f10/c12a/ca5f47208593/48e6a8389665/00653625400-e1/00653625400-e1.jpg?ts=1749468711238&w=704"
+        }
+    ],
+    "stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "status": "stokta_degil",
+            "name": "OMUZ ÇANTASI",
+            "price": "Bilinmiyor",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
+        }
+    ],
+    "yeni_stokta": [],
+    "yeni_stokta_degil": []
 }
