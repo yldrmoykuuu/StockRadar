@@ -265,16 +265,12 @@ def check_stock_zara(url):
     finally:
         driver.quit()
 
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     url = None
     search = request.args.get('search', '').lower()
     product_info = None
-    data = {}  # <-- buraya dikkat, başlangıçta boş sözlük tanımlandı
 
     if request.method == 'POST':
         url = request.form.get('url').strip()
@@ -302,6 +298,7 @@ def index():
 
     all_data = load_saved_products()
 
+    # Aramaya göre filtreleme yap
     def filter_products(products):
         if not search:
             return products
@@ -312,14 +309,18 @@ def index():
 
     return render_template_string(
         HTML_TEMPLATE,
-        stokta=data.get("stokta", []),
-        stokta_degil=data.get("stokta_degil", []),
-        yeni_stokta=data.get("yeni_stokta", []),
-        yeni_stokta_degil=data.get("yeni_stokta_degil", []),
-        url=url,
         result=result,
+        url=url,
+        stokta=stokta_filtered,
+        stokta_degil=stokta_degil_filtered,
+        yeni_stokta=all_data.get("yeni_stokta", []),
+        yeni_stokta_degil=all_data.get("yeni_stokta_degil", []),
+        product_info=product_info,
         search=search
     )
+
+
+
 
        
 
