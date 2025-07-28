@@ -229,7 +229,7 @@ def check_stock_zara(url):
 
         try:
             product_price_element = driver.find_element(By.CSS_SELECTOR,
-                '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span')
+                                                        '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price')
             product_price = product_price_element.text.strip()
         except NoSuchElementException:
             product_price = "Bilinmiyor"
@@ -311,6 +311,9 @@ def take_screenshot(url, filename_prefix="stock_change"):
     driver.save_screenshot(filepath)
     driver.quit()
     print(f"📸 Ekran görüntüsü alındı: {filepath}")
+
+    path = take_screenshot("http://127.0.0.1:5000")
+    print(f"Ekran görüntüsü kaydedildi: {path}")
     return filepath
 
 def check_all_products_periodically():
@@ -380,6 +383,9 @@ def check_all_products_periodically():
         body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır.",
        
     )
+
+    screenshot_path = take_screenshot("http://127.0.0.1:5000")
+    print(f"Ekran görüntüsü kaydedildi: {screenshot_path}")
 
     return current_data
 
