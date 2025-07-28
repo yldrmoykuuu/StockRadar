@@ -16,6 +16,7 @@ jobs:
       EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
       EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
       EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+      GITHUB_ACTIONS: true
 
     steps:
       - name: Repo'yu klonla
@@ -38,4 +39,4 @@ jobs:
           git config --global user.email "actions@github.com"
           git add urun.json
           git commit -m "Stok durumu otomatik güncelleme [skip ci]" || echo "Değişiklik yok"
-          git push
+          git push origin main

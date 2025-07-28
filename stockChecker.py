@@ -11,13 +11,15 @@ import pandas as pd
 from io import BytesIO
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-import smtplib
+
 from email.mime.text import MIMEText
 import tempfile
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 load_dotenv()
+import smtplib
+from email.mime.text import MIMEText
 
 
 
@@ -441,6 +443,10 @@ def check_all_products_periodically():
 
 
 def send_email(subject, body, to_email=EMAIL_RECEIVER):
+  
+    import smtplib
+    from email.mime.text import MIMEText
+
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
 
@@ -458,6 +464,8 @@ def send_email(subject, body, to_email=EMAIL_RECEIVER):
         print("Mail başarıyla gönderildi.")
     except Exception as e:
         print(f"Mail gönderme hatası: {e}")
+        # raise e  # bunu kaldırdım
+
 
            
 
