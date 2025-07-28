@@ -6,29 +6,28 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
 from io import BytesIO
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-
 from email.mime.text import MIMEText
-import tempfile
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
-load_dotenv()
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 import smtplib
-from email.mime.text import MIMEText
+from dotenv import load_dotenv
+import re
+
+load_dotenv()
 
 
 
 app = Flask(__name__)
 JSON_FILE = "urun.json"
 
-EMAIL_SENDER = os.getenv("EMAIL_SENDER")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
+
 
 
 HTML_TEMPLATE = """
@@ -193,48 +192,32 @@ def load_saved_products():
 
 def save_product(product):
     data = load_saved_products()
-    
-    # Remove product from all categories if it exists
+    # Remove product from all categories
     for category in ["stokta", "stokta_degil", "yeni_stokta", "yeni_stokta_degil"]:
         data[category] = [p for p in data[category] if p["url"] != product["url"]]
-    
-    # Add product to the appropriate category
+    # Add product to correct category
     if product["status"] == "stokta":
         data["stokta"].append(product)
     elif product["status"] == "stokta_degil":
         data["stokta_degil"].append(product)
-
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
-
-
 def check_stock_zara(url):
     options = Options()
-    # Headless mod yok, ama istersen aktif edebilirsin:
-    options.add_argument("--headless=new")  
+    options.add_argument("--headless=new")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-
-    # Viewport ayarı - bazı siteler geniş ekran istiyor
     options.add_argument("--window-size=1920,1080")
-
-    # User-agent ekle (bazı siteler headless'ı algılayıp engelliyor)
     options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
-
-    # WebDriver tespiti gizleme (isteğe bağlı)
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option('useAutomationExtension', False)
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
     try:
         driver.get(url)
-
-        wait = WebDriverWait(driver, 10)  # 10 saniyeye kadar bekle
-
-        # Örneğin ürün başlığı yüklenene kadar bekle
+        wait = WebDriverWait(driver, 10)
         try:
             product_name_element = wait.until(EC.presence_of_element_located((
                 By.CSS_SELECTOR,
@@ -245,10 +228,8 @@ def check_stock_zara(url):
             product_name = "Bilinmiyor"
 
         try:
-            product_price_element = driver.find_element(
-                By.CSS_SELECTOR,
-                '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
-            )
+            product_price_element = driver.find_element(By.CSS_SELECTOR,
+                '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span')
             product_price = product_price_element.text.strip()
         except NoSuchElementException:
             product_price = "Bilinmiyor"
@@ -264,7 +245,6 @@ def check_stock_zara(url):
         try:
             add_button = driver.find_element(By.CSS_SELECTOR, 'button[data-qa-action="add-to-cart"]')
             button_text = add_button.text.strip()
-
             if "EKLE" in button_text:
                 status = "stokta"
             elif "BENZER ÜRÜNLER" in button_text:
@@ -280,111 +260,58 @@ def check_stock_zara(url):
             "price": product_price,
             "image": product_img,
         }
-
     except Exception as e:
         return {"status": f"hata: {e}"}
-
     finally:
         driver.quit()
 
+def send_email(subject, body, attachment_path=None):
+    sender_email = os.environ.get("EMAIL_SENDER")
+    sender_password = os.environ.get("EMAIL_PASSWORD")
+    receiver_email = os.environ.get("EMAIL_RECEIVER")
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    result = None
-    url = None
-    search = request.args.get('search', '').lower()
-    product_info = None
+    msg = MIMEMultipart()
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+    msg["Subject"] = subject
 
-    if request.method == 'POST':
-        url = request.form.get('url').strip()
-        data = check_stock_zara(url)
+    msg.attach(MIMEText(body, "plain"))
 
-        if "hata:" in data.get("status", ""):
-            result = f"⚠️ Hata oluştu: {data['status']}"
-        elif data.get("status") == "belirsiz":
-            result = "⚠️ Ürün durumu belirlenemedi."
-        else:
-            product = {
-                "url": url,
-                "status": data["status"],
-                "name": data.get("name", "Bilinmiyor"),
-                "price": data.get("price", "Bilinmiyor"),
-                "image": data.get("image", "")
-            }
-            save_product(product)
-            product_info = product
+    if attachment_path and os.path.exists(attachment_path):
+        with open(attachment_path, "rb") as f:
+            part = MIMEApplication(f.read(), Name=os.path.basename(attachment_path))
+        part['Content-Disposition'] = f'attachment; filename="{os.path.basename(attachment_path)}"'
+        msg.attach(part)
 
-            if product["status"] == "stokta":
-                result = "✅ Ürün stokta ve kaydedildi."
-            else:
-                result = "❌ Ürün stokta değil ve kaydedildi."
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+            print("✅ E-posta gönderildi.")
+    except Exception as e:
+        print(f"❌ E-posta gönderilemedi: {e}")
 
-    all_data = load_saved_products()
+def take_screenshot(url, filename_prefix="stock_change"):
+    options = Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
 
-    # Aramaya göre filtreleme yap
-    def filter_products(products):
-        if not search:
-            return products
-        return [p for p in products if search in p["name"].lower()]
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver.get(url)
 
-    stokta_filtered = filter_products(all_data.get("stokta", []))
-    stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
-    yeni_stokta_filtered = filter_products(all_data.get("yeni_stokta", []))
-    yeni_stokta_degil_filtered = filter_products(all_data.get("yeni_stokta_degil", []))
+    os.makedirs("screenshots", exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-    return render_template_string(
-        HTML_TEMPLATE,
-        result=result,
-        url=url,
-        stokta=stokta_filtered,
-        stokta_degil=stokta_degil_filtered,
-        product_info=product_info,
-        yeni_stokta=yeni_stokta_filtered,
-        yeni_stokta_degil=yeni_stokta_degil_filtered,
-        search=search
-    )
+    # Güvenli dosya adı için karakterleri temizle
+    safe_prefix = re.sub(r'[^a-zA-Z0-9_-]', '_', filename_prefix)
 
-@app.route('/export_excel')
-def export_excel():
-    all_data = load_saved_products()
-    combined = all_data.get("stokta", []) + all_data.get("stokta_degil", [])
-
-    if not combined:
-        df = pd.DataFrame(columns=["status", "name", "price", "url", "image"])
-    else:
-        df = pd.DataFrame(combined)
-
-    output = BytesIO()
-    with pd.ExcelWriter(output, engine='openpyxl') as writer:
-        df.to_excel(writer, index=False, sheet_name='Products')
-    output.seek(0)
-
-    return send_file(output,
-                     download_name="products.xlsx",
-                     as_attachment=True,
-                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
-@app.route('/delete_product', methods=['POST'])
-def delete_product():
-    url_to_delete = request.json.get("url")
-    if not url_to_delete:
-        return jsonify({"success": False, "error": "URL verilmedi"}), 400
-
-    data = load_saved_products()
-    original_stokta_len = len(data["stokta"])
-    original_stokta_degil_len = len(data["stokta_degil"])
-
-    # URL'ye göre filtreleme (silme)
-    data["stokta"] = [p for p in data["stokta"] if p["url"] != url_to_delete]
-    data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != url_to_delete]
-
-    if len(data["stokta"]) < original_stokta_len or len(data["stokta_degil"]) < original_stokta_degil_len:
-        with open(JSON_FILE, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
-        return jsonify({"success": True})
-    else:
-        return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
-
+    filepath = f"screenshots/{safe_prefix}_{timestamp}.png"
+    driver.save_screenshot(filepath)
+    driver.quit()
+    print(f"📸 Ekran görüntüsü alındı: {filepath}")
+    return filepath
 
 def check_all_products_periodically():
     data = load_saved_products()
@@ -415,30 +342,35 @@ def check_all_products_periodically():
                 }
                 save_product(updated_product)
 
+                screenshot_path = take_screenshot(
+                    updated_product["url"],
+                    filename_prefix=updated_product["name"]
+                )
+
                 if new_status == "stokta" and prev_status == "stokta_degil":
                     yeni_stokta.append(updated_product)
                     print(f"🆕 Yeni stok: {updated_product['name']}")
                     send_email(
                         subject=f"Stok Güncellemesi: '{updated_product['name']}' Stokta!",
-                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve şimdi stokta.\nLink: {updated_product['url']}"
+                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve şimdi stokta.\nLink: {updated_product['url']}",
+                        attachment_path=screenshot_path
                     )
                 elif new_status == "stokta_degil" and prev_status == "stokta":
                     yeni_stokta_degil.append(updated_product)
                     print(f"📉 Stok tükendi: {updated_product['name']}")
                     send_email(
                         subject=f"Stok Güncellemesi: '{updated_product['name']}' Stoğu Tükendi!",
-                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve artık stokta değil.\nLink: {updated_product['url']}"
+                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve artık stokta değil.\nLink: {updated_product['url']}",
+                        attachment_path=screenshot_path
                     )
 
     current_data = load_saved_products()
     current_data["yeni_stokta"] = yeni_stokta
     current_data["yeni_stokta_degil"] = yeni_stokta_degil
 
-
-    
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(current_data, f, indent=4, ensure_ascii=False)
-    
+
     if not yeni_stokta and not yeni_stokta_degil:
         print("✅ Stok güncellemesi yok.")
         send_email(
@@ -446,33 +378,12 @@ def check_all_products_periodically():
             body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır."
         )
 
-
     return current_data
 
 
-def send_email(subject, body, to_email=EMAIL_RECEIVER):
   
-    import smtplib
-    from email.mime.text import MIMEText
+   
 
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-
-    msg = MIMEText(body, "plain", "utf-8")
-    msg["Subject"] = subject
-    msg["From"] = EMAIL_SENDER
-    msg["To"] = to_email
-
-    try:
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
-        server.sendmail(EMAIL_SENDER, to_email, msg.as_string())
-        server.quit()
-        print("Mail başarıyla gönderildi.")
-    except Exception as e:
-        print(f"Mail gönderme hatası: {e}")
-      
 
 
            
