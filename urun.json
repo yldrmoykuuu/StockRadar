@@ -5,67 +5,69 @@
             "status": "stokta",
             "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
             "price": "720,00 TL",
-            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704"
+            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704",
+            "color": "EKRU | 4424/507/712"
         },
         {
-            "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
+            "url": "https://www.zara.com/tr/tr/desenli-bandana-p00653625.html?v1=471620295",
             "status": "stokta",
-            "name": "KONTRAST İŞLEMELİ CEKET",
+            "name": "DESENLİ BANDANA",
+            "price": "450,00 TL",
+            "image": "https://static.zara.net/assets/public/0f10/c12a/ca5f47208593/48e6a8389665/00653625400-e1/00653625400-e1.jpg?ts=1749468711238&w=704",
+            "color": "MAVI | 0653/625/400"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/cift-bel-bantli-wide-leg-pantolon-p01608225.html?v1=469506513&v2=2580407",
+            "status": "stokta",
+            "name": "ÇİFT BEL BANTLI WIDE LEG PANTOLON",
             "price": "1.690,00 TL",
-            "image": "https://static.zara.net/assets/public/c5fb/a5de/e65b4c1a9641/d5e2c0377836/02298026064-p/02298026064-p.jpg?ts=1752834746494&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/desenli-saten-elbise-p02940067.html?v1=440386854&v2=2580270",
-            "status": "stokta",
-            "name": "DESENLİ SATEN ELBİSE",
-            "price": "790,00 TL\n590,00 TL",
-            "image": "https://static.zara.net/assets/public/1805/339c/d63b4d8ea984/e000f82a313f/02940067080-p/02940067080-p.jpg?ts=1744358597818&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/crop-denim-gomlek-trf-p06929068.html?v1=449173038&v2=2580407",
-            "status": "stokta",
-            "name": "CROP DENIM GÖMLEK TRF",
-            "price": "490,00 TL\n390,00 TL",
-            "image": "https://static.zara.net/assets/public/e5a5/aece/b5e441aca500/83e8958dfb49/06929068400-p/06929068400-p.jpg?ts=1743502341104&w=704"
+            "image": "https://static.zara.net/assets/public/1d92/cbb4/520a4e6697fa/a7af4e918e93/01608225800-p/01608225800-p.jpg?ts=1750863292494&w=704",
+            "color": "SIYAH | 1608/225/800"
         },
         {
             "url": "https://www.zara.com/tr/tr/crop-pamuk-modal-t-shirt-p03641309.html?v1=477258522",
             "status": "stokta",
             "name": "CROP PAMUK MODAL T-SHIRT",
             "price": "350,00 TL",
-            "image": "https://static.zara.net/assets/public/83c5/f007/7fdb4be18680/7a9466980953/03641309800-p/03641309800-p.jpg?ts=1752664394332&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/deri-duz-babet---50th-anniversary-p13502510.html?v1=452696893",
-            "status": "stokta",
-            "name": "DERİ DÜZ BABET - 50TH ANNIVERSARY",
-            "price": "1.890,00 TL",
-            "image": "https://static.zara.net/assets/public/ef26/b3c9/774a40b5ad20/c459829e18d2/13502510800-p/13502510800-p.jpg?ts=1739354924479&w=704"
+            "image": "https://static.zara.net/assets/public/83c5/f007/7fdb4be18680/7a9466980953/03641309800-p/03641309800-p.jpg?ts=1752664394332&w=704",
+            "color": "SIYAH | 3641/309/800"
         }
     ],
     "stokta_degil": [
         {
-            "url": "https://www.zara.com/tr/tr/balon-kollu-ceket-p04772732.html?v1=410575256&origin=shopcart",
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-capraz-askili-canta-p11143530.html?v1=426955083",
+            "status": "stokta_degil",
+            "name": "HAYVAN DESENLİ ÇAPRAZ ASKILI ÇANTA",
+            "price": "400,00 TL",
+            "image": "https://static.zara.net/assets/public/3e63/eb0b/0e034f9ebeb9/9aece8d82b9c/11143530700-p/11143530700-p.jpg?ts=1734523453182&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/balon-kollu-ceket-p04772732.html?v1=410575256",
             "status": "stokta_degil",
             "name": "BALON KOLLU CEKET",
-            "price": "790,00 TL\n490,00 TL",
-            "image": "https://static.zara.net/assets/public/f481/0633/7fb347229af7/c96d2c6790c2/04772732401-p/04772732401-p.jpg?ts=1735828730059&w=704"
+            "price": "490,00 TL",
+            "image": "https://static.zara.net/assets/public/f481/0633/7fb347229af7/c96d2c6790c2/04772732401-p/04772732401-p.jpg?ts=1735828730059&w=704",
+            "color": "Bilinmiyor"
         },
         {
             "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
             "status": "stokta_degil",
             "name": "OMUZ ÇANTASI",
-            "price": "1.290,00 TL\n990,00 TL",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
+            "price": "990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704",
+            "color": "Bilinmiyor"
         },
         {
             "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
             "status": "stokta_degil",
             "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
-            "price": "790,00 TL\n490,00 TL",
-            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704"
+            "price": "490,00 TL",
+            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704",
+            "color": "Bilinmiyor"
         }
     ],
     "yeni_stokta": [],
-    "yeni_stokta_degil": []
+    "yeni_stokta_degil": [
+       
+    ]
 }

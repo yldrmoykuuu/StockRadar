@@ -22,13 +22,8 @@ import re
 
 load_dotenv()
 
-
-
 app = Flask(__name__)
 JSON_FILE = "urun.json"
-
-
-
 
 HTML_TEMPLATE = """
 <!doctype html>
@@ -104,6 +99,7 @@ HTML_TEMPLATE = """
                     <img src="{{ product.image }}" alt="Resim Yok">
                     <p><strong>{{ product.name }}</strong></p>
                     <p>{{ product.price }}</p>
+                    <p><strong>Renk:</strong> {{ product.color }}</p>
                     <a href="{{ product.url }}" target="_blank">Link</a>
                 </div>
             {% endfor %}
@@ -117,42 +113,45 @@ HTML_TEMPLATE = """
                     <img src="{{ product.image }}" alt="Resim Yok">
                     <p><strong>{{ product.name }}</strong></p>
                     <p>{{ product.price }}</p>
+                   
                     <a href="{{ product.url }}" target="_blank">Link</a>
                 </div>
             {% endfor %}
         </div>
 
        <div class="column">
-    <h3>🆕 Yeni Stoğa Giren Ürünler</h3>
-    {% for product in yeni_stokta %}
-        <div class="product">
-            <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-            <img src="{{ product.image }}" alt="Resim Yok">
-            <p><strong>{{ product.name }}</strong></p>
-            <p>{{ product.price }}</p>
-            <p><small>Güncellenme: {{ product.last_updated }}</small></p>
-            <a href="{{ product.url }}" target="_blank">Link</a>
-        </div>
-    {% else %}
-        <p>Yeni stoğa giren ürün bulunmamaktadır.</p>
-    {% endfor %}
-</div>
+        <h3>🆕 Yeni Stoğa Giren Ürünler</h3>
+        {% for product in yeni_stokta %}
+            <div class="product">
+                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+                <img src="{{ product.image }}" alt="Resim Yok">
+                <p><strong>{{ product.name }}</strong></p>
+                <p>{{ product.price }}</p>
+                <p><strong>Renk:</strong> {{ product.color }}</p>
+                <p><small>Güncellenme: {{ product.last_updated }}</small></p>
+                <a href="{{ product.url }}" target="_blank">Link</a>
+            </div>
+        {% else %}
+            <p>Yeni stoğa giren ürün bulunmamaktadır.</p>
+        {% endfor %}
+    </div>
 
-<div class="column">
-    <h3>📉 Yeni Stoğu Tükenen Ürünler</h3>
-    {% for product in yeni_stokta_degil %}
-        <div class="product">
-            <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-            <img src="{{ product.image }}" alt="Resim Yok">
-            <p><strong>{{ product.name }}</strong></p>
-            <p>{{ product.price }}</p>
-            <p><small>Güncellenme: {{ product.last_updated }}</small></p>
-            <a href="{{ product.url }}" target="_blank">Link</a>
-        </div>
-    {% else %}
-        <p>Yeni stoğu tükenen ürün bulunmamaktadır.</p>
-    {% endfor %}
-</div>
+    <div class="column">
+        <h3>📉 Yeni Stoğu Tükenen Ürünler</h3>
+        {% for product in yeni_stokta_degil %}
+            <div class="product">
+                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+                <img src="{{ product.image }}" alt="Resim Yok">
+                <p><strong>{{ product.name }}</strong></p>
+                <p>{{ product.price }}</p>
+              
+                <p><small>Güncellenme: {{ product.last_updated }}</small></p>
+                <a href="{{ product.url }}" target="_blank">Link</a>
+            </div>
+        {% else %}
+            <p>Yeni stoğu tükenen ürün bulunmamaktadır.</p>
+        {% endfor %}
+    </div>
 
 <script>
 function deleteProduct(url) {
@@ -218,6 +217,7 @@ def check_stock_zara(url):
     try:
         driver.get(url)
         wait = WebDriverWait(driver, 10)
+
         try:
             product_name_element = wait.until(EC.presence_of_element_located((
                 By.CSS_SELECTOR,
@@ -229,10 +229,15 @@ def check_stock_zara(url):
 
         try:
             product_price_element = driver.find_element(By.CSS_SELECTOR,
-                                                        '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price')
+                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > ins > span > div > span')
             product_price = product_price_element.text.strip()
         except NoSuchElementException:
-            product_price = "Bilinmiyor"
+            try:
+                product_price_element = driver.find_element(By.CSS_SELECTOR,
+                    '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span')
+                product_price = product_price_element.text.strip()
+            except NoSuchElementException:
+                product_price = "Bilinmiyor"
 
         try:
             product_img = driver.find_element(
@@ -241,6 +246,15 @@ def check_stock_zara(url):
             ).get_attribute('src')
         except NoSuchElementException:
             product_img = ""
+
+        try:
+            product_color_element=driver.find_element(
+                By.CSS_SELECTOR,'#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-color-selector.product-detail-info__color-selector'
+
+        )  
+            product_color=product_color_element.text.strip()
+        except NoSuchElementException:
+            product_color="Bilinmiyor"    
 
         try:
             add_button = driver.find_element(By.CSS_SELECTOR, 'button[data-qa-action="add-to-cart"]')
@@ -259,6 +273,7 @@ def check_stock_zara(url):
             "name": product_name,
             "price": product_price,
             "image": product_img,
+            "color":product_color
         }
     except Exception as e:
         return {"status": f"hata: {e}"}
@@ -286,7 +301,8 @@ def index():
                 "status": data["status"],
                 "name": data.get("name", "Bilinmiyor"),
                 "price": data.get("price", "Bilinmiyor"),
-                "image": data.get("image", "")
+                "image": data.get("image", ""),
+                "color":data.get("color","Bilinmiyor")
             }
             save_product(product)
             product_info = product
@@ -306,6 +322,8 @@ def index():
 
     stokta_filtered = filter_products(all_data.get("stokta", []))
     stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
+  
+
 
     return render_template_string(
         HTML_TEMPLATE,
@@ -315,14 +333,10 @@ def index():
         stokta_degil=stokta_degil_filtered,
         yeni_stokta=all_data.get("yeni_stokta", []),
         yeni_stokta_degil=all_data.get("yeni_stokta_degil", []),
+     
         product_info=product_info,
         search=search
     )
-
-
-
-
-       
 
 def send_email(subject, body, attachment_path=None):
     sender_email = os.environ.get("EMAIL_SENDER")
@@ -350,33 +364,10 @@ def send_email(subject, body, attachment_path=None):
     except Exception as e:
         print(f"❌ E-posta gönderilemedi: {e}")
 
-def take_screenshot(url, filename_prefix="stock_change"):
-    options = Options()
-    
-    options.add_argument("--headless=new")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--window-size=1920,1080")
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get(url)
-
-    os.makedirs("screenshots", exist_ok=True)
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-    # Güvenli dosya adı için karakterleri temizle
-    safe_prefix = re.sub(r'[^a-zA-Z0-9_-]', '_', filename_prefix)
-
-    filepath = f"screenshots/{safe_prefix}_{timestamp}.png"
-    driver.save_screenshot(filepath)
-    driver.quit()
-    
-
-  
-  
 
 def check_all_products_periodically():
-    screenshot_path= None
+  
     data = load_saved_products()
     yeni_stokta = []
     yeni_stokta_degil = []
@@ -401,30 +392,28 @@ def check_all_products_periodically():
                     "price": new_data.get("price", product["price"]),
                     "image": new_data.get("image", product["image"]),
                     "status": new_status,
+                    "color":new_color,
                     "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 }
                 save_product(updated_product)
 
-                screenshot_path = take_screenshot(
-                    updated_product["url"],
-                    filename_prefix=updated_product["name"]
-                )
+               
 
                 if new_status == "stokta" and prev_status == "stokta_degil":
                     yeni_stokta.append(updated_product)
                     print(f"🆕 Yeni stok: {updated_product['name']}")
                     send_email(
                         subject=f"Stok Güncellemesi: '{updated_product['name']}' Stokta!",
-                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve şimdi stokta.\nLink: {updated_product['url']}",
-                        attachment_path=screenshot_path
+                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve şimdi stokta.\nLink: {updated_product['url']}"
+                        
                     )
                 elif new_status == "stokta_degil" and prev_status == "stokta":
                     yeni_stokta_degil.append(updated_product)
                     print(f"📉 Stok tükendi: {updated_product['name']}")
                     send_email(
                         subject=f"Stok Güncellemesi: '{updated_product['name']}' Stoğu Tükendi!",
-                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve artık stokta değil.\nLink: {updated_product['url']}",
-                        attachment_path=screenshot_path
+                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve artık stokta değil.\nLink: {updated_product['url']}"
+                     
                     )
 
     current_data = load_saved_products()
@@ -434,16 +423,12 @@ def check_all_products_periodically():
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(current_data, f, indent=4, ensure_ascii=False)
 
-        if not yeni_stokta and not yeni_stokta_degil:
-         print("✅ Stok güncellemesi yok.")
-   
-    send_email(
-        subject="Stok Güncellemesi: Değişiklik Yok",
-        body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır.",
-       
-    )
-
-   
+    if not yeni_stokta and not yeni_stokta_degil:
+        print("✅ Stok güncellemesi yok.")
+        send_email(
+            subject="Stok Güncellemesi: Değişiklik Yok",
+            body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır.",
+        )
 
     return current_data
 
@@ -473,10 +458,14 @@ def export_excel():
     all_data = load_saved_products()
     combined = all_data.get("stokta", []) + all_data.get("stokta_degil", [])
 
+    # Eğer veri yoksa boş tablo oluştur
     if not combined:
-        df = pd.DataFrame(columns=["status", "name", "price"])
+        df = pd.DataFrame(columns=["name", "price", "status"])
     else:
         df = pd.DataFrame(combined)
+
+        # Sadece istediğin sütunları al
+        df = df[["name", "price", "status"]]
 
     output = BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
@@ -488,18 +477,12 @@ def export_excel():
                      as_attachment=True,
                      mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
-
-  
-   
-
-
-
 if __name__ == '__main__':
     if os.environ.get("GITHUB_ACTIONS") == "true":
         check_all_products_periodically()
     else:
-     scheduler = BackgroundScheduler()
-     scheduler.add_job(check_all_products_periodically, 'interval', minutes=10)
-     scheduler.start()
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(check_all_products_periodically, 'interval', hours=1)
+        scheduler.start()
 
-     app.run(debug=True, use_reloader=False)
+        app.run(debug=True, use_reloader=False)
