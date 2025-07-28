@@ -20,6 +20,14 @@
             "name": "DESENLİ SATEN ELBİSE",
             "price": "790,00 TL\n590,00 TL",
             "image": "https://static.zara.net/assets/public/1805/339c/d63b4d8ea984/e000f82a313f/02940067080-p/02940067080-p.jpg?ts=1744358597818&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "name": "OMUZ ÇANTASI",
+            "price": "1.290,00 TL\n990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=710",
+            "status": "stokta",
+            "last_updated": "2025-07-28 19:18:39"
         }
     ],
     "stokta_degil": [
@@ -51,16 +59,17 @@
             "image": "https://static.zara.net/assets/public/e5a5/aece/b5e441aca500/83e8958dfb49/06929068400-p/06929068400-p.jpg?ts=1743502341104&w=710",
             "status": "stokta_degil",
             "last_updated": "2025-07-28 15:23:01"
-        },
+        }
+    ],
+    "yeni_stokta": [
         {
             "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
             "name": "OMUZ ÇANTASI",
             "price": "1.290,00 TL\n990,00 TL",
-            "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-28 15:23:05"
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=710",
+            "status": "stokta",
+            "last_updated": "2025-07-28 19:18:39"
         }
     ],
-    "yeni_stokta": [],
     "yeni_stokta_degil": []
 }
