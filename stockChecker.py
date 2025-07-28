@@ -375,7 +375,9 @@ def check_all_products_periodically():
         print("✅ Stok güncellemesi yok.")
         send_email(
             subject="Stok Güncellemesi: Değişiklik Yok",
-            body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır."
+            body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır.",
+            attachment_path=screenshot_path
+            
         )
 
     return current_data
