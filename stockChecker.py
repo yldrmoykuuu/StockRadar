@@ -193,7 +193,7 @@ def load_saved_products():
 def save_product(product):
     data = load_saved_products()
     # Remove product from all categories
-    for category in ["stokta", "stokta_degil", "yeni_stokta", "yeni_stokta_degil"]:
+    for category in ["stokta", "stokta_degil"]:
         data[category] = [p for p in data[category] if p["url"] != product["url"]]
     # Add product to correct category
     if product["status"] == "stokta":
