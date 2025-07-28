@@ -312,11 +312,12 @@ def index():
 
     return render_template_string(
         HTML_TEMPLATE,
-        result=result,
+        stokta=data.get("stokta", []),
+        stokta_degil=data.get("stokta_degil", []),
+        yeni_stokta=data.get("yeni_stokta", []),
+        yeni_stokta_degil=data.get("yeni_stokta_degil", []),
         url=url,
-        stokta=stokta_filtered,
-        stokta_degil=stokta_degil_filtered,
-        product_info=product_info,
+        result=result,
         search=search
     )
        
@@ -497,7 +498,7 @@ if __name__ == '__main__':
         check_all_products_periodically()
     else:
      scheduler = BackgroundScheduler()
-     scheduler.add_job(check_all_products_periodically, 'interval', hours=1)
+     scheduler.add_job(check_all_products_periodically, 'interval', minutes=10)
      scheduler.start()
 
      app.run(debug=True, use_reloader=False)

@@ -22,36 +22,55 @@
             "image": "https://static.zara.net/assets/public/1b34/3096/bc1544649beb/2bd41e298c1e/01887602535-e1/01887602535-e1.jpg?ts=1750173687928&w=704"
         },
         {
-            "url": "https://www.zara.com/tr/tr/suet-platformlu-topuklu-bilekte-bot-p12109510.html?v1=423750295&v2=2367760",
-            "status": "stokta",
-            "name": "SÜET PLATFORMLU TOPUKLU BİLEKTE BOT",
-            "price": "Bilinmiyor",
-            "image": "https://static.zara.net/assets/public/fb19/d49c/82334646a0f0/d68738d16851/12109510105-p/12109510105-p.jpg?ts=1733305460791&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/hayvan-desenli-tokali-babet-p13505510.html?v1=410585749&v2=2367760",
-            "status": "stokta",
-            "name": "HAYVAN DESENLİ TOKALI BABET",
-            "price": "Bilinmiyor",
-            "image": "https://static.zara.net/assets/public/e4cb/77b9/d26b40378bf7/0fab7605cbce/13505510194-e1/13505510194-e1.jpg?ts=1737040180852&w=704"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
             "status": "stokta",
             "name": "KONTRAST İŞLEMELİ CEKET",
             "price": "1.690,00 TL",
             "image": "https://static.zara.net/assets/public/c5fb/a5de/e65b4c1a9641/d5e2c0377836/02298026064-p/02298026064-p.jpg?ts=1752834746494&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "name": "OMUZ ÇANTASI",
+            "price": "1.290,00 TL\n990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=710",
+            "status": "stokta",
+            "last_updated": "2025-07-28 09:07:12"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/suet-platformlu-topuklu-bilekte-bot-p12109510.html?v1=423750295&v2=2367760",
+            "status": "stokta",
+            "name": "SÜET PLATFORMLU TOPUKLU BİLEKTE BOT",
+            "price": "1.990,00 TL\n1.490,00 TL",
+            "image": "https://static.zara.net/assets/public/fb19/d49c/82334646a0f0/d68738d16851/12109510105-p/12109510105-p.jpg?ts=1733305460791&w=704"
         }
     ],
     "stokta_degil": [
         {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-tokali-babet-p13505510.html?v1=410585749&v2=2367760",
+            "name": "HAYVAN DESENLİ TOKALI BABET",
+            "price": "790,00 TL\n590,00 TL",
+            "image": "https://static.zara.net/assets/public/e4cb/77b9/d26b40378bf7/0fab7605cbce/13505510194-e1/13505510194-e1.jpg?ts=1737040180852&w=710",
             "status": "stokta_degil",
-            "name": "OMUZ ÇANTASI",
-            "price": "Bilinmiyor",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
+            "last_updated": "2025-07-28 09:07:05"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-topuklu-sandalet-p12364510.html?v1=430663355&v2=2367760",
+            "name": "HAYVAN DESENLİ TOPUKLU SANDALET",
+            "price": "1.190,00 TL\n690,00 TL",
+            "image": "https://static.zara.net/assets/public/262c/ded6/0b1643e99a5f/c4d65476efff/12364510195-p/12364510195-p.jpg?ts=1747151389413&w=704",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-28 13:03:52"
         }
     ],
     "yeni_stokta": [],
-    "yeni_stokta_degil": []
+    "yeni_stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-topuklu-sandalet-p12364510.html?v1=430663355&v2=2367760",
+            "name": "HAYVAN DESENLİ TOPUKLU SANDALET",
+            "price": "1.190,00 TL\n690,00 TL",
+            "image": "https://static.zara.net/assets/public/262c/ded6/0b1643e99a5f/c4d65476efff/12364510195-p/12364510195-p.jpg?ts=1747151389413&w=704",
+            "status": "stokta_degil",
+            "last_updated": "2025-07-28 13:03:52"
+        }
+    ]
 }
