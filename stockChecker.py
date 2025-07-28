@@ -34,7 +34,7 @@ HTML_TEMPLATE = """
 <!doctype html>
 <html>
 <head>
-    <title>Zara Stok Kontrol</title>
+    <title>Sepetim Stok Kontrol</title>
     <style>
         .container {
             display: flex;
@@ -73,7 +73,7 @@ HTML_TEMPLATE = """
     </style>
 </head>
 <body>
-    <h2>Zara Stok Kontrol</h2>
+    <h2>Alışveriş Sepetim Stok Kontrol</h2>
     <form method="POST">
         <label>Ürün URL'si:</label>
         <input type="text" name="url" style="width:400px;" required>
@@ -352,6 +352,7 @@ def send_email(subject, body, attachment_path=None):
 
 def take_screenshot(url, filename_prefix="stock_change"):
     options = Options()
+    
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
@@ -473,7 +474,7 @@ def export_excel():
     combined = all_data.get("stokta", []) + all_data.get("stokta_degil", [])
 
     if not combined:
-        df = pd.DataFrame(columns=["status", "name", "price", "url", "image"])
+        df = pd.DataFrame(columns=["status", "name", "price"])
     else:
         df = pd.DataFrame(combined)
 

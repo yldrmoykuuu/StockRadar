@@ -15,13 +15,6 @@
             "image": "https://static.zara.net/assets/public/c5fb/a5de/e65b4c1a9641/d5e2c0377836/02298026064-p/02298026064-p.jpg?ts=1752834746494&w=704"
         },
         {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "status": "stokta",
-            "name": "OMUZ ÇANTASI",
-            "price": "1.290,00 TL\n990,00 TL",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/desenli-saten-elbise-p02940067.html?v1=440386854&v2=2580270",
             "status": "stokta",
             "name": "DESENLİ SATEN ELBİSE",
@@ -34,6 +27,20 @@
             "name": "CROP DENIM GÖMLEK TRF",
             "price": "490,00 TL\n390,00 TL",
             "image": "https://static.zara.net/assets/public/e5a5/aece/b5e441aca500/83e8958dfb49/06929068400-p/06929068400-p.jpg?ts=1743502341104&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/crop-pamuk-modal-t-shirt-p03641309.html?v1=477258522",
+            "status": "stokta",
+            "name": "CROP PAMUK MODAL T-SHIRT",
+            "price": "350,00 TL",
+            "image": "https://static.zara.net/assets/public/83c5/f007/7fdb4be18680/7a9466980953/03641309800-p/03641309800-p.jpg?ts=1752664394332&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/deri-duz-babet---50th-anniversary-p13502510.html?v1=452696893",
+            "status": "stokta",
+            "name": "DERİ DÜZ BABET - 50TH ANNIVERSARY",
+            "price": "1.890,00 TL",
+            "image": "https://static.zara.net/assets/public/ef26/b3c9/774a40b5ad20/c459829e18d2/13502510800-p/13502510800-p.jpg?ts=1739354924479&w=704"
         }
     ],
     "stokta_degil": [
@@ -45,18 +52,18 @@
             "image": "https://static.zara.net/assets/public/f481/0633/7fb347229af7/c96d2c6790c2/04772732401-p/04772732401-p.jpg?ts=1735828730059&w=704"
         },
         {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "status": "stokta_degil",
+            "name": "OMUZ ÇANTASI",
+            "price": "1.290,00 TL\n990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
+        },
+        {
             "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
             "status": "stokta_degil",
             "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
             "price": "790,00 TL\n490,00 TL",
             "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/yari-uzun-boucle-kaban-p03046049.html?v1=410594600",
-            "status": "stokta_degil",
-            "name": "YARI UZUN BOUCLÉ KABAN",
-            "price": "790,00 TL\n490,00 TL",
-            "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=704"
         }
     ],
     "yeni_stokta": [],
