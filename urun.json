@@ -62,22 +62,5 @@
         }
     ],
     "yeni_stokta": [],
-    "yeni_stokta_degil": [
-        {
-            "url": "https://www.zara.com/tr/tr/crop-denim-gomlek-trf-p06929068.html?v1=449173038&v2=2580407",
-            "name": "CROP DENIM GÖMLEK TRF",
-            "price": "490,00 TL\n390,00 TL",
-            "image": "https://static.zara.net/assets/public/e5a5/aece/b5e441aca500/83e8958dfb49/06929068400-p/06929068400-p.jpg?ts=1743502341104&w=710",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-28 15:23:01"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "name": "OMUZ ÇANTASI",
-            "price": "1.290,00 TL\n990,00 TL",
-            "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-28 15:23:05"
-        }
-    ]
+    "yeni_stokta_degil": []
 }
