@@ -265,6 +265,62 @@ def check_stock_zara(url):
     finally:
         driver.quit()
 
+
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    result = None
+    url = None
+    search = request.args.get('search', '').lower()
+    product_info = None
+
+    if request.method == 'POST':
+        url = request.form.get('url').strip()
+        data = check_stock_zara(url)
+
+        if "hata:" in data.get("status", ""):
+            result = f"⚠️ Hata oluştu: {data['status']}"
+        elif data.get("status") == "belirsiz":
+            result = "⚠️ Ürün durumu belirlenemedi."
+        else:
+            product = {
+                "url": url,
+                "status": data["status"],
+                "name": data.get("name", "Bilinmiyor"),
+                "price": data.get("price", "Bilinmiyor"),
+                "image": data.get("image", "")
+            }
+            save_product(product)
+            product_info = product
+
+            if product["status"] == "stokta":
+                result = "✅ Ürün stokta ve kaydedildi."
+            else:
+                result = "❌ Ürün stokta değil ve kaydedildi."
+
+    all_data = load_saved_products()
+
+    # Aramaya göre filtreleme yap
+    def filter_products(products):
+        if not search:
+            return products
+        return [p for p in products if search in p["name"].lower()]
+
+    stokta_filtered = filter_products(all_data.get("stokta", []))
+    stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
+
+    return render_template_string(
+        HTML_TEMPLATE,
+        result=result,
+        url=url,
+        stokta=stokta_filtered,
+        stokta_degil=stokta_degil_filtered,
+        product_info=product_info,
+        search=search
+    )
+       
+
 def send_email(subject, body, attachment_path=None):
     sender_email = os.environ.get("EMAIL_SENDER")
     sender_password = os.environ.get("EMAIL_PASSWORD")
@@ -386,6 +442,47 @@ def check_all_products_periodically():
    
 
     return current_data
+
+@app.route('/delete_product', methods=['POST'])
+def delete_product():
+    url_to_delete = request.json.get("url")
+    if not url_to_delete:
+        return jsonify({"success": False, "error": "URL verilmedi"}), 400
+
+    data = load_saved_products()
+    original_stokta_len = len(data["stokta"])
+    original_stokta_degil_len = len(data["stokta_degil"])
+
+    # URL'ye göre filtreleme (silme)
+    data["stokta"] = [p for p in data["stokta"] if p["url"] != url_to_delete]
+    data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != url_to_delete]
+
+    if len(data["stokta"]) < original_stokta_len or len(data["stokta_degil"]) < original_stokta_degil_len:
+        with open(JSON_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False, "error": "Ürün bulunamadı"}), 404
+
+@app.route('/export_excel')
+def export_excel():
+    all_data = load_saved_products()
+    combined = all_data.get("stokta", []) + all_data.get("stokta_degil", [])
+
+    if not combined:
+        df = pd.DataFrame(columns=["status", "name", "price", "url", "image"])
+    else:
+        df = pd.DataFrame(combined)
+
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Products')
+    output.seek(0)
+
+    return send_file(output,
+                     download_name="products.xlsx",
+                     as_attachment=True,
+                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 
   
