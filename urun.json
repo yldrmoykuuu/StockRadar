@@ -1,41 +1,6 @@
 {
-<<<<<<< HEAD
-    "stokta": [
-        {
-            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
-            "status": "stokta",
-            "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
-            "price": "720,00 TL",
-            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
-            "status": "stokta",
-            "name": "KONTRAST İŞLEMELİ CEKET",
-            "price": "1.690,00 TL",
-            "image": "https://static.zara.net/assets/public/c5fb/a5de/e65b4c1a9641/d5e2c0377836/02298026064-p/02298026064-p.jpg?ts=1752834746494&w=704"
-        }
-    ],
-    "stokta_degil": [
-        {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "status": "stokta_degil",
-            "name": "OMUZ ÇANTASI",
-            "price": "Bilinmiyor",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
-        },
-        {
-            "url": "http://zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
-            "status": "stokta_degil",
-            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
-            "price": "Bilinmiyor",
-            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704"
-        }
-    ],
-=======
     "stokta": [],
     "stokta_degil": [],
->>>>>>> 550f4727e326936aca6386e7d0f61a7e9fc6e10f
     "yeni_stokta": [],
     "yeni_stokta_degil": []
 }
