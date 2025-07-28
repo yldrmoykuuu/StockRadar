@@ -16,9 +16,18 @@ from email.mime.text import MIMEText
 import tempfile
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from dotenv import load_dotenv
+load_dotenv()
+
+
 
 app = Flask(__name__)
 JSON_FILE = "urun.json"
+
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
+
 
 HTML_TEMPLATE = """
 <!doctype html>
@@ -407,19 +416,48 @@ def check_all_products_periodically():
                 if new_status == "stokta" and prev_status == "stokta_degil":
                     yeni_stokta.append(updated_product)
                     print(f"🆕 Yeni stok: {updated_product['name']}")
+                    send_email(
+                        subject=f"Stok Güncellemesi: '{updated_product['name']}' Stokta!",
+                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve şimdi stokta.\nLink: {updated_product['url']}"
+                    )
                 elif new_status == "stokta_degil" and prev_status == "stokta":
                     yeni_stokta_degil.append(updated_product)
                     print(f"📉 Stok tükendi: {updated_product['name']}")
+                    send_email(
+                        subject=f"Stok Güncellemesi: '{updated_product['name']}' Stoğu Tükendi!",
+                        body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve artık stokta değil.\nLink: {updated_product['url']}"
+                    )
 
-    # Yeni stok durumlarını kaydet
     current_data = load_saved_products()
     current_data["yeni_stokta"] = yeni_stokta
     current_data["yeni_stokta_degil"] = yeni_stokta_degil
+
+
     
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(current_data, f, indent=4, ensure_ascii=False)
     
     return current_data
+
+
+def send_email(subject, body, to_email=EMAIL_RECEIVER):
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+
+    msg = MIMEText(body, "plain", "utf-8")
+    msg["Subject"] = subject
+    msg["From"] = EMAIL_SENDER
+    msg["To"] = to_email
+
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_SENDER, to_email, msg.as_string())
+        server.quit()
+        print("Mail başarıyla gönderildi.")
+    except Exception as e:
+        print(f"Mail gönderme hatası: {e}")
 
            
 
