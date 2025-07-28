@@ -314,6 +314,7 @@ def take_screenshot(url, filename_prefix="stock_change"):
     return filepath
 
 def check_all_products_periodically():
+    screenshot_path= None
     data = load_saved_products()
     yeni_stokta = []
     yeni_stokta_degil = []
