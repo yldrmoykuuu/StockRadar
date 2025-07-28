@@ -314,7 +314,7 @@ def take_screenshot(url, filename_prefix="stock_change"):
 
     path = take_screenshot("http://127.0.0.1:5000")
     print(f"Ekran görüntüsü kaydedildi: {path}")
-    return filepath
+  
 
 def check_all_products_periodically():
     screenshot_path= None
