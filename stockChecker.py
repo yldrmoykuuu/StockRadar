@@ -374,11 +374,11 @@ def check_all_products_periodically():
 
         if not yeni_stokta and not yeni_stokta_degil:
          print("✅ Stok güncellemesi yok.")
-    screenshot_path = take_screenshot("http://127.0.0.1:5000")  # Buraya kendi local URL'ni koy
+   
     send_email(
         subject="Stok Güncellemesi: Değişiklik Yok",
         body="Şu anda hiçbir üründe stok durumu değişikliği bulunmamaktadır.",
-        attachment_path=screenshot_path
+       
     )
 
     return current_data
