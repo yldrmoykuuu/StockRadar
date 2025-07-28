@@ -22,18 +22,18 @@
             "image": "https://static.zara.net/assets/public/0f10/c12a/ca5f47208593/48e6a8389665/00653625400-e1/00653625400-e1.jpg?ts=1749468711238&w=713"
         },
         {
-            "url": "https://www.zara.com/tr/tr/z-02-straight-ankle-yuksek-bel-jean-p06164059.html?v1=475480448&v2=2546081&origin=shopcart",
-            "status": "stokta",
-            "name": "Z.02 STRAIGHT ANKLE YÜKSEK BEL JEAN",
-            "price": "1.590,00 TL",
-            "image": "https://static.zara.net/assets/public/5a2b/7007/6e5245e6b30a/4a8e4bdc5c6f/06164059406-1-p/06164059406-1-p.jpg?ts=1752244376723&w=713"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
             "status": "stokta",
             "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
             "price": "720,00 TL",
             "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=570"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/z-02-straight-ankle-yuksek-bel-jean-p06164059.html?v1=475480448&v2=2546081&origin=shopcart",
+            "status": "stokta",
+            "name": "Z.02 STRAIGHT ANKLE YÜKSEK BEL JEAN",
+            "price": "1.590,00 TL",
+            "image": "https://static.zara.net/assets/public/5a2b/7007/6e5245e6b30a/4a8e4bdc5c6f/06164059406-1-p/06164059406-1-p.jpg?ts=1752244376723&w=713"
         }
     ],
     "stokta_degil": [

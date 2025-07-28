@@ -14,6 +14,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import smtplib
 from email.mime.text import MIMEText
 import tempfile
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 app = Flask(__name__)
 JSON_FILE = "urun.json"
@@ -194,31 +196,49 @@ def save_product(product):
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
+
+
 def check_stock_zara(url):
     options = Options()
+    # Headless mod yok, ama istersen aktif edebilirsin:
+    options.add_argument("--headless=new")  
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    
+
+    # Viewport ayarı - bazı siteler geniş ekran istiyor
+    options.add_argument("--window-size=1920,1080")
+
+    # User-agent ekle (bazı siteler headless'ı algılayıp engelliyor)
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
+
+    # WebDriver tespiti gizleme (isteğe bağlı)
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     try:
         driver.get(url)
 
+        wait = WebDriverWait(driver, 10)  # 10 saniyeye kadar bekle
+
+        # Örneğin ürün başlığı yüklenene kadar bekle
         try:
-            product_name = driver.find_element(
+            product_name_element = wait.until(EC.presence_of_element_located((
                 By.CSS_SELECTOR,
                 '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__header > div > h1'
-            ).text.strip()
-        except NoSuchElementException:
+            )))
+            product_name = product_name_element.text.strip()
+        except Exception:
             product_name = "Bilinmiyor"
 
         try:
-            product_price = driver.find_element(
+            product_price_element = driver.find_element(
                 By.CSS_SELECTOR,
                 '#main > div > div.product-detail-view-std > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-info__info > div.product-detail-info__price > div > span > span > span > div > span'
-            ).text.strip()
+            )
+            product_price = product_price_element.text.strip()
         except NoSuchElementException:
             product_price = "Bilinmiyor"
 
@@ -255,6 +275,7 @@ def check_stock_zara(url):
 
     finally:
         driver.quit()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
