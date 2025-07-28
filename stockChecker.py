@@ -274,6 +274,7 @@ def index():
     url = None
     search = request.args.get('search', '').lower()
     product_info = None
+    data = {}  # <-- buraya dikkat, başlangıçta boş sözlük tanımlandı
 
     if request.method == 'POST':
         url = request.form.get('url').strip()
@@ -301,7 +302,6 @@ def index():
 
     all_data = load_saved_products()
 
-    # Aramaya göre filtreleme yap
     def filter_products(products):
         if not search:
             return products
@@ -320,6 +320,7 @@ def index():
         result=result,
         search=search
     )
+
        
 
 def send_email(subject, body, attachment_path=None):
@@ -490,8 +491,6 @@ def export_excel():
    
 
 
-
-           
 
 if __name__ == '__main__':
     if os.environ.get("GITHUB_ACTIONS") == "true":

@@ -1,6 +1,99 @@
 {
-    "stokta": [],
-    "stokta_degil": [],
+    "stokta": [
+        {
+            "url": "https://www.zara.com/tr/tr/duz-renkli-orta-agirlikli-t-shirt-p01887602.html?v1=477596105",
+            "status": "stokta",
+            "name": "DÜZ RENKLİ ORTA AĞIRLIKLI T-SHIRT",
+            "price": "320,00 TL",
+            "image": "https://static.zara.net/assets/public/1b34/3096/bc1544649beb/2bd41e298c1e/01887602535-e1/01887602535-e1.jpg?ts=1750173687928&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-spor-ayakkabi-p15416410.html?v1=422720360&v2=2367760",
+            "status": "stokta",
+            "name": "HAYVAN DESENLİ SPOR AYAKKABI",
+            "price": "990,00 TL\n790,00 TL",
+            "image": "https://static.zara.net/assets/public/e41a/f4b8/db3c42c38db8/49c1710bab58/15416410195-a1/15416410195-a1.jpg?ts=1721375657282&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/hayvan-desenli-arkasi-acik-topuklu-ayakkabi-p12236410.html?v1=463301937&v2=2580270",
+            "status": "stokta",
+            "name": "HAYVAN DESENLİ ARKASI AÇIK TOPUKLU AYAKKABI",
+            "price": "1.890,00 TL",
+            "image": "https://static.zara.net/assets/public/38da/e873/f6f54cdfa9b4/35788d1f05ca/12236410195-p/12236410195-p.jpg?ts=1748248227378&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "status": "stokta",
+            "name": "OMUZ ÇANTASI",
+            "price": "1.290,00 TL\n990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
+            "status": "stokta",
+            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/balon-kollu-ceket-p04772732.html?v1=410575256",
+            "status": "stokta",
+            "name": "BALON KOLLU CEKET",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/f481/0633/7fb347229af7/c96d2c6790c2/04772732401-p/04772732401-p.jpg?ts=1735828730059&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/kapusonlu-dokulu-bomber-ceket-p08372261.html?v1=431955933&v2=2136422",
+            "status": "stokta",
+            "name": "KAPÜŞONLU DOKULU BOMBER CEKET",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/0cba/c57f/686f44edad0e/960c50443ec9/08372261922-p/08372261922-p.jpg?ts=1736442157737&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
+            "status": "stokta",
+            "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
+            "price": "720,00 TL",
+            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/zw-collection-cizgili-gomlek-p02605411.html?v1=433766293&v2=2580407",
+            "status": "stokta",
+            "name": "ZW COLLECTION ÇİZGİLİ GÖMLEK",
+            "price": "990,00 TL\n690,00 TL",
+            "image": "https://static.zara.net/assets/public/593c/de4f/4a0b446895f9/919b2c1ac236/02605411083-p/02605411083-p.jpg?ts=1741261584628&w=704"
+        }
+    ],
+    "stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/halter-yaka-midi-elbise-p01044155.html?v1=427196495&v2=2580270",
+            "status": "stokta_degil",
+            "name": "HALTER YAKA MİDİ ELBİSE",
+            "price": "590,00 TL\n390,00 TL",
+            "image": "https://static.zara.net/assets/public/c4eb/bd5e/97ba44679752/00df73965aad/01044155717-p/01044155717-p.jpg?ts=1742287585874&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/kapakli-kol-cantasi-p16565510.html?v1=410574990",
+            "status": "stokta_degil",
+            "name": "KAPAKLI KOL ÇANTASI",
+            "price": "990,00 TL\n590,00 TL",
+            "image": "https://static.zara.net/stdstatic/6.81.1/images/transparent-background.png"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/hafif-katlanabilir-ruzgarlik-p05854774.html?v1=430532185",
+            "status": "stokta_degil",
+            "name": "HAFİF KATLANABİLİR RÜZGARLIK",
+            "price": "590,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/b24c/ea2f/508f42098bc4/b8b319bda28f/05854774420-e1/05854774420-e1.jpg?ts=1744297816285&w=704"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/basic-blazer-p01255887.html?v1=436043895",
+            "status": "stokta_degil",
+            "name": "BASIC BLAZER",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/974e/c6e8/2217445ea3b2/09e0f0106c22/01255778800-p/01255778800-p.jpg?ts=1737849475000&w=704"
+        }
+    ],
     "yeni_stokta": [],
     "yeni_stokta_degil": []
 }
