@@ -1,5 +1,5 @@
 
-📦 Stok Takip ve Bildirim Uygulaması
+📦Zara Stok Takip ve Bildirim Uygulaması
 
 
 Bu proje, belirli e-ticaret sitelerindeki ürünlerin stok ve fiyat durumlarını otomatik olarak takip eden, değişikliklerde kullanıcıya e-posta ile bildirim gönderen bir web uygulamasıdır.
