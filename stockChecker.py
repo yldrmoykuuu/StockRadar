@@ -482,7 +482,7 @@ if __name__ == '__main__':
         check_all_products_periodically()
     else:
         scheduler = BackgroundScheduler()
-        scheduler.add_job(check_all_products_periodically, 'interval', hours=1)
+        scheduler.add_job(check_all_products_periodically, 'interval', minutes=10)
         scheduler.start()
 
         app.run(debug=True, use_reloader=False)
