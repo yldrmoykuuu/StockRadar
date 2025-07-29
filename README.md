@@ -1,5 +1,7 @@
 
 📦 Stok Takip ve Bildirim Uygulaması
+
+
 Bu proje, belirli e-ticaret sitelerindeki ürünlerin stok ve fiyat durumlarını otomatik olarak takip eden, değişikliklerde kullanıcıya e-posta ile bildirim gönderen bir web uygulamasıdır.
 Ürün bilgileri Selenium ile çekilir, JSON dosyasında saklanır ve HTML sayfada renkli uyarılarla kullanıcıya sunulur.
 Proje ayrıca ürün arama, filtreleme, fiyat değişim takibi ve dışa aktarma özelliklerine sahiptir.
