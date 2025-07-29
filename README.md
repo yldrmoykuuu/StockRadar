@@ -7,35 +7,42 @@ Bu proje, belirli e-ticaret sitelerindeki ürünlerin stok ve fiyat durumların�
 Proje ayrıca ürün arama, filtreleme, fiyat değişim takibi ve dışa aktarma özelliklerine sahiptir.
 
 ⚙️ Kullanılan Teknolojiler
-🐍 Python: Uygulama kodları için.
+ Python: Uygulama kodları için.
 
-🌐 Selenium: Web otomasyonu ve ürün bilgilerini çekmek için.
+Selenium: Web otomasyonu ve ürün bilgilerini çekmek için.
 
-📁 JSON: Ürün verilerinin saklanması için.
+ JSON: Ürün verilerinin saklanması için.
 
-🔄 GitHub Actions: Otomatik zamanlanmış stok kontrolü için.
+ GitHub Actions: Otomatik zamanlanmış stok kontrolü için.
 
-📧 SMTP (Python smtplib): E-posta bildirimleri göndermek için.
+SMTP (Python smtplib): E-posta bildirimleri göndermek için.
 
-📊 Matplotlib veya Plotly (isteğe bağlı): Fiyat değişim grafikleri için.
+Matplotlib veya Plotly (isteğe bağlı): Fiyat değişim grafikleri için.
 
-📊 Pandas: Excel/CSV dışa aktarma işlemleri için.
+ Pandas: Excel/CSV dışa aktarma işlemleri için.
 
 🚀 Ana Özellikler
-🟢🔴 Renkli uyarılar: Ürün stok durumuna göre yeşil (stokta), kırmızı (stokta yok).
+ Renkli uyarılar: Ürün stok durumuna göre yeşil (stokta), kırmızı (stokta yok).
 
-🏷️ Ürün detayları: Ürün adı, fiyat, resim ve URL bilgilerini çekme ve kaydetme.
+ Ürün detayları: Ürün adı, fiyat, resim ve URL bilgilerini çekme ve kaydetme.
+<img width="952" height="922" alt="stoğa girmiş ürün listesi" src="https://github.com/user-attachments/assets/c628d040-75c0-473a-8506-6051a97331cd" />
 
-✨ Yeni Stoğa Gelenler: HTML sayfada “Yeni Stoğa Gelenler” bölümünde yeni ürünleri listeleme.
+ Yeni Stoğa Gelenler: HTML sayfada “Yeni Stoğa Gelenler” bölümünde yeni ürünleri listeleme.
+<img width="1892" height="980" alt="yeni_stoğu_tükenenlerin_stokta_yok" src="https://github.com/user-attachments/assets/f32a21da-aec3-4b9b-a9a3-105a9e328dfe" />
+ Arama ve filtreleme: URL, ürün adı ve stok durumu bazında hızlı arama ve filtreleme.
+<img width="1900" height="917" alt="filtreleme" src="https://github.com/user-attachments/assets/d4d659fe-a872-4771-9a22-d4cfa1e5326d" />
 
-🔍 Arama ve filtreleme: URL, ürün adı ve stok durumu bazında hızlı arama ve filtreleme.
+ Excel/CSV dışa aktarma: Kayıtlı ürün listesini kolayca dışa aktarma.
 
-📥 Excel/CSV dışa aktarma: Kayıtlı ürün listesini kolayca dışa aktarma.
+<img width="715" height="561" alt="excel_product" src="https://github.com/user-attachments/assets/f3fef6f9-86fa-42d1-9319-0470a447c3e1" />
 
-📈 Fiyat değişim takibi: Fiyat değişikliklerini takip edip grafiklerle gösterme.
+ Fiyat değişim takibi: Fiyat değişikliklerini takip edip grafiklerle gösterme.
 
-🗑️ Silme butonu: İstenmeyen ürünleri listeden kaldırma.
+ Silme butonu: İstenmeyen ürünleri listeden kaldırma.
 
-⏲️ Arka planda stok kontrolü: Belirli aralıklarla otomatik stok takibi ve mail bildirimleri.
+ Arka planda stok kontrolü: Belirli aralıklarla otomatik stok takibi ve mail bildirimleri.
 
-📄 JSON veri takibi: Ürün durumu ve stok değişikliklerinin detaylı kaydı.
+
+<img width="1917" height="575" alt="yelek stoğa geldi mail" src="https://github.com/user-attachments/assets/33697e13-2de7-448f-9e28-8559b9886c09" />
+
+ JSON veri takibi: Ürün durumu ve stok değişikliklerinin detaylı kaydı.
