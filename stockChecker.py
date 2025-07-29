@@ -24,6 +24,7 @@ load_dotenv()
 
 app = Flask(__name__)
 JSON_FILE = "urun.json"
+PRICE_HISTORY_FILE="fiyat_gecmisi.json"
 
 HTML_TEMPLATE = """
 <!doctype html>
@@ -99,6 +100,14 @@ HTML_TEMPLATE = """
                     <img src="{{ product.image }}" alt="Resim Yok">
                     <p><strong>{{ product.name }}</strong></p>
                     <p>{{ product.price }}</p>
+                    <details>
+  <summary>📈 Fiyat Geçmişi</summary>
+  <ul>
+    {% for entry in product.history %}
+      <li>{{ entry.date }} — {{ entry.price }}</li>
+    {% endfor %}
+  </ul>
+</details>
                     <p><strong>Renk:</strong> {{ product.color }}</p>
                     <a href="{{ product.url }}" target="_blank">Link</a>
                 </div>
@@ -113,6 +122,14 @@ HTML_TEMPLATE = """
                     <img src="{{ product.image }}" alt="Resim Yok">
                     <p><strong>{{ product.name }}</strong></p>
                     <p>{{ product.price }}</p>
+                    <details>
+  <summary>📈 Fiyat Geçmişi</summary>
+  <ul>
+    {% for entry in product.history %}
+      <li>{{ entry.date }} — {{ entry.price }}</li>
+    {% endfor %}
+  </ul>
+</details>
                    
                     <a href="{{ product.url }}" target="_blank">Link</a>
                 </div>
@@ -177,6 +194,32 @@ function deleteProduct(url) {
 </html>
 """
 
+def load_price_history():
+    if not os.path.exists(PRICE_HISTORY_FILE):
+        return{}
+    try:
+        with open(PRICE_HISTORY_FILE,"r",encoding="utf-8") as f:
+         return json.load(f)   
+    except Exception:
+         return{}    
+def save_price_history(data):
+    with open(PRICE_HISTORY_FILE,"w",encoding="utf-8")as f:
+        json.dump(data,f,indent=4,ensure_ascii=False)  
+
+def update_price_history(product):
+  url=product["url"]
+  price=product["price"]
+  today_str=datetime.now().strftime("%Y-%m-%d")
+
+  history_data=load_price_history()
+  product_history=history_data.get(url, [])
+
+  if not any(entry["date"] == today_str and entry["price"] == price for entry in product_history):
+        product_history.append({"date": today_str, "price": price})
+        history_data[url] = product_history
+        save_price_history(history_data)
+
+
 def load_saved_products():
     if not os.path.exists(JSON_FILE):
         return {"stokta": [], "stokta_degil": [], "yeni_stokta": [], "yeni_stokta_degil": []}
@@ -191,16 +234,19 @@ def load_saved_products():
 
 def save_product(product):
     data = load_saved_products()
-    # Remove product from all categories
     for category in ["stokta", "stokta_degil"]:
         data[category] = [p for p in data[category] if p["url"] != product["url"]]
-    # Add product to correct category
+    update_price_history(product)   
     if product["status"] == "stokta":
         data["stokta"].append(product)
     elif product["status"] == "stokta_degil":
         data["stokta_degil"].append(product)
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
+@app.route('/price_history')
+def price_history():
+    history = load_price_history()
+    return jsonify(history)        
 
 def check_stock_zara(url):
     options = Options()
