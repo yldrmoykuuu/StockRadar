@@ -1,14 +1,6 @@
 {
     "stokta": [
         {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "status": "stokta",
-            "name": "OMUZ ÇANTASI",
-            "price": "990,00 TL",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704",
-            "color": "SIYAH | 6242/510/800"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
             "status": "stokta",
             "name": "KONTRAST İŞLEMELİ CEKET",
@@ -57,8 +49,27 @@
             "price": "590,00 TL",
             "image": "https://static.zara.net/assets/public/0cc6/52cf/71d946e6b1aa/e827bb309050/16565510624-e1/16565510624-e1.jpg?ts=1737727289863&w=704",
             "color": "BORDO KIRMIZI | 6565/510/624"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "name": "OMUZ ÇANTASI",
+            "price": "990,00 TL",
+            "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
+            "status": "stokta_degil",
+            "color": "SIYAH | 6242/510/800",
+            "last_updated": "2025-07-29 10:21:46"
         }
     ],
     "yeni_stokta": [],
-    "yeni_stokta_degil": []
+    "yeni_stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "name": "OMUZ ÇANTASI",
+            "price": "990,00 TL",
+            "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
+            "status": "stokta_degil",
+            "color": "SIYAH | 6242/510/800",
+            "last_updated": "2025-07-29 10:21:46"
+        }
+    ]
 }
