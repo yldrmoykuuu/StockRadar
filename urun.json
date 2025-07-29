@@ -36,6 +36,14 @@
             "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
             "status": "stokta",
             "last_updated": "2025-07-29 01:55:56"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
+            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
+            "status": "stokta",
+            "last_updated": "2025-07-29 05:28:38"
         }
     ],
     "stokta_degil": [
@@ -47,13 +55,6 @@
             "image": "https://static.zara.net/assets/public/f481/0633/7fb347229af7/c96d2c6790c2/04772732401-p/04772732401-p.jpg?ts=1735828730059&w=704"
         },
         {
-            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
-            "status": "stokta_degil",
-            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
-            "price": "790,00 TL\n490,00 TL",
-            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/yari-uzun-boucle-kaban-p03046049.html?v1=410594600",
             "status": "stokta_degil",
             "name": "YARI UZUN BOUCLÉ KABAN",
@@ -61,6 +62,15 @@
             "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=704"
         }
     ],
-    "yeni_stokta": [],
+    "yeni_stokta": [
+        {
+            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
+            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
+            "status": "stokta",
+            "last_updated": "2025-07-29 05:28:38"
+        }
+    ],
     "yeni_stokta_degil": []
 }
