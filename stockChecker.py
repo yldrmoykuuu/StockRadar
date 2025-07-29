@@ -24,7 +24,7 @@ load_dotenv()
 
 app = Flask(__name__)
 JSON_FILE = "urun.json"
-PRICE_HISTORY_FILE="fiyat_gecmisi.json"
+PRICE_HISTORY_FILE = "fiyat_gecmisi.json"
 
 HTML_TEMPLATE = """
 <!doctype html>
@@ -32,39 +32,161 @@ HTML_TEMPLATE = """
 <head>
     <title>Sepetim Stok Kontrol</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #222;
+            margin: 10px 15px 20px 15px;
+            font-size: 14px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
         .container {
             display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
+            justify-content: space-between;
+            margin-top: 15px;
+            flex-wrap: nowrap; /* 4 sütun yan yana */
+            gap: 10px;
         }
+
         .column {
-            width: 45%;
+            width: 24%;
+            box-sizing: border-box;
+            padding: 5px;
         }
+
         .product {
-            position: relative; /* Silme butonu için gerekli */
+            position: relative;
             border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 8px;
+            margin: 8px 0;
             text-align: center;
+            border-radius: 5px;
+            background-color: #fafafa;
+            transition: box-shadow 0.3s ease;
+            font-size: 13px;
         }
+
+        .product:hover {
+            box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+        }
+
         .delete-btn {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 4px;
+            right: 4px;
             border: none;
             background: transparent;
             cursor: pointer;
-            font-size: 18px;
-            color: red;
+            font-size: 16px;
+            color: #d9534f;
+            transition: color 0.2s ease;
         }
+
+        .delete-btn:hover {
+            color: #c9302c;
+        }
+
         img {
-            max-width: 15%;
+            max-width: 18%;
             height: auto;
+            border-radius: 4px;
+            margin-bottom: 6px;
         }
+
         h3 {
             text-align: center;
             background-color: #f0f0f0;
-            padding: 10px;
+            padding: 8px;
+            margin-top: 0;
+            border-radius: 5px 5px 0 0;
+            font-size: 16px;
+        }
+
+        form {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 6px 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 350px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #5bc0de;
+            outline: none;
+        }
+
+        button {
+            background-color: #5bc0de;
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #31b0d5;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        details ul {
+            margin-top: 4px;
+            padding-left: 18px;
+            max-height: 80px;
+            overflow-y: auto;
+            color: #555;
+            font-size: 12px;
+        }
+
+        a {
+            color: #5bc0de;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #sepetTutari {
+            font-weight: bold;
+            font-size: 17px;
+            color: #27ae60;
+        }
+
+        /* Mobilde 4 sütun alt alta %100 genişlik */
+        @media (max-width: 900px) {
+            .container {
+                flex-wrap: wrap;
+            }
+            .column {
+                width: 100% !important;
+                margin-bottom: 15px;
+            }
+            input[type="text"] {
+                width: 90%;
+            }
         }
     </style>
 </head>
@@ -83,13 +205,15 @@ HTML_TEMPLATE = """
         <input type="text" name="search" placeholder="Ürün adına göre ara" value="{{ search | default('') }}">
         <button type="submit">Ara</button>
     </form>
-    <div style="margin-bottom: 20px;">
-        <a href="/export_excel"><button type="button">Excel Olarak İndir</button></a>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <a href="/export_excel"><button type="button">Excel Olarak İndir</button></a>
+    <div style="font-weight: bold; font-size: 18px;">
+         🛒 Sepet Tutarı: <span id="sepetTutari">
+            {{ "{:,.2f}".format(toplam_fiyat).replace(",", "X").replace(".", ",").replace("X", ".") }} TL
+        </span>
     </div>
+</div>
 
-    {% if result %}
-        <p><strong>Sonuç:</strong> {{ result }}</p>
-    {% endif %}
 
     <div class="container">
         <div class="column">
@@ -101,13 +225,13 @@ HTML_TEMPLATE = """
                     <p><strong>{{ product.name }}</strong></p>
                     <p>{{ product.price }}</p>
                     <details>
-  <summary>📈 Fiyat Geçmişi</summary>
-  <ul>
-    {% for entry in product.history %}
-      <li>{{ entry.date }} — {{ entry.price }}</li>
-    {% endfor %}
-  </ul>
-</details>
+                        <summary>📈 Fiyat Geçmişi</summary>
+                        <ul>
+                        {% for entry in product.history %}
+                            <li>{{ entry.date }} — {{ entry.price }}</li>
+                        {% endfor %}
+                        </ul>
+                    </details>
                     <p><strong>Renk:</strong> {{ product.color }}</p>
                     <a href="{{ product.url }}" target="_blank">Link</a>
                 </div>
@@ -123,51 +247,50 @@ HTML_TEMPLATE = """
                     <p><strong>{{ product.name }}</strong></p>
                     <p>{{ product.price }}</p>
                     <details>
-  <summary>📈 Fiyat Geçmişi</summary>
-  <ul>
-    {% for entry in product.history %}
-      <li>{{ entry.date }} — {{ entry.price }}</li>
-    {% endfor %}
-  </ul>
-</details>
-                   
+                        <summary>📈 Fiyat Geçmişi</summary>
+                        <ul>
+                        {% for entry in product.history %}
+                            <li>{{ entry.date }} — {{ entry.price }}</li>
+                        {% endfor %}
+                        </ul>
+                    </details>
                     <a href="{{ product.url }}" target="_blank">Link</a>
                 </div>
             {% endfor %}
         </div>
 
-       <div class="column">
-        <h3>🆕 Yeni Stoğa Giren Ürünler</h3>
-        {% for product in yeni_stokta %}
-            <div class="product">
-                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-                <img src="{{ product.image }}" alt="Resim Yok">
-                <p><strong>{{ product.name }}</strong></p>
-                <p>{{ product.price }}</p>
-                <p><strong>Renk:</strong> {{ product.color }}</p>
-                <p><small>Güncellenme: {{ product.last_updated }}</small></p>
-                <a href="{{ product.url }}" target="_blank">Link</a>
-            </div>
-        {% else %}
-            <p>Yeni stoğa giren ürün bulunmamaktadır.</p>
-        {% endfor %}
-    </div>
+        <div class="column">
+            <h3>🆕 Yeni Stoğa Giren Ürünler</h3>
+            {% for product in yeni_stokta %}
+                <div class="product">
+                    <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+                    <img src="{{ product.image }}" alt="Resim Yok">
+                    <p><strong>{{ product.name }}</strong></p>
+                    <p>{{ product.price }}</p>
+                    <p><strong>Renk:</strong> {{ product.color }}</p>
+                    <p><small>Güncellenme: {{ product.last_updated }}</small></p>
+                    <a href="{{ product.url }}" target="_blank">Link</a>
+                </div>
+            {% else %}
+                <p>Yeni stoğa giren ürün bulunmamaktadır.</p>
+            {% endfor %}
+        </div>
 
-    <div class="column">
-        <h3>📉 Yeni Stoğu Tükenen Ürünler</h3>
-        {% for product in yeni_stokta_degil %}
-            <div class="product">
-                <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
-                <img src="{{ product.image }}" alt="Resim Yok">
-                <p><strong>{{ product.name }}</strong></p>
-                <p>{{ product.price }}</p>
-              
-                <p><small>Güncellenme: {{ product.last_updated }}</small></p>
-                <a href="{{ product.url }}" target="_blank">Link</a>
-            </div>
-        {% else %}
-            <p>Yeni stoğu tükenen ürün bulunmamaktadır.</p>
-        {% endfor %}
+        <div class="column">
+            <h3>📉 Yeni Stoğu Tükenen Ürünler</h3>
+            {% for product in yeni_stokta_degil %}
+                <div class="product">
+                    <button class="delete-btn" onclick="deleteProduct('{{ product.url }}')">🗑️</button>
+                    <img src="{{ product.image }}" alt="Resim Yok">
+                    <p><strong>{{ product.name }}</strong></p>
+                    <p>{{ product.price }}</p>
+                    <p><small>Güncellenme: {{ product.last_updated }}</small></p>
+                    <a href="{{ product.url }}" target="_blank">Link</a>
+                </div>
+            {% else %}
+                <p>Yeni stoğu tükenen ürün bulunmamaktadır.</p>
+            {% endfor %}
+        </div>
     </div>
 
 <script>
@@ -192,32 +315,46 @@ function deleteProduct(url) {
 </script>
 </body>
 </html>
+
+
+
+
+
 """
 
 def load_price_history():
     if not os.path.exists(PRICE_HISTORY_FILE):
-        return{}
+        return {}
     try:
-        with open(PRICE_HISTORY_FILE,"r",encoding="utf-8") as f:
-         return json.load(f)   
+        with open(PRICE_HISTORY_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
     except Exception:
-         return{}    
+        return {}
+
 def save_price_history(data):
-    with open(PRICE_HISTORY_FILE,"w",encoding="utf-8")as f:
-        json.dump(data,f,indent=4,ensure_ascii=False)  
+    with open(PRICE_HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
 
 def update_price_history(product):
-  url=product["url"]
-  price=product["price"]
-  today_str=datetime.now().strftime("%Y-%m-%d")
+    url = product["url"]
+    price = product["price"]
+    today_str = datetime.now().strftime("%Y-%m-%d")
 
-  history_data=load_price_history()
-  product_history=history_data.get(url, [])
+    if price == "Bilinmiyor":
+        print(f"Fiyat bilinmiyor, fiyat geçmişi güncellenmedi: {url}")
+        return
 
-  if not any(entry["date"] == today_str and entry["price"] == price for entry in product_history):
+    history_data = load_price_history()
+    product_history = history_data.get(url, [])
+
+    if not any(entry["date"] == today_str and entry["price"] == price for entry in product_history):
         product_history.append({"date": today_str, "price": price})
         history_data[url] = product_history
         save_price_history(history_data)
+        print(f"Fiyat geçmişi güncellendi: {url} - {price} - {today_str}")
+    else:
+        print(f"Aynı fiyat zaten kayıtlı: {url} - {price} - {today_str}")
+
 
 
 def load_saved_products():
@@ -236,17 +373,28 @@ def save_product(product):
     data = load_saved_products()
     for category in ["stokta", "stokta_degil"]:
         data[category] = [p for p in data[category] if p["url"] != product["url"]]
-    update_price_history(product)   
+    update_price_history(product)
     if product["status"] == "stokta":
         data["stokta"].append(product)
     elif product["status"] == "stokta_degil":
         data["stokta_degil"].append(product)
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
+
 @app.route('/price_history')
 def price_history():
     history = load_price_history()
-    return jsonify(history)        
+    return jsonify(history)
+
+def parse_price(price_str):
+    try:
+     return float(price_str.replace(" TL", "").replace(".", "").replace(",", "."))
+    except:
+      return{}
+    
+
+
+
 
 def check_stock_zara(url):
     options = Options()
@@ -294,13 +442,13 @@ def check_stock_zara(url):
             product_img = ""
 
         try:
-            product_color_element=driver.find_element(
-                By.CSS_SELECTOR,'#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > div.product-detail-color-selector.product-detail-info__color-selector'
-
-        )  
-            product_color=product_color_element.text.strip()
+            product_color_element = driver.find_element(
+                By.CSS_SELECTOR,
+                '#main > div > div > div.product-detail-view__main-content > div.product-detail-view__main-info > div > p'
+            )
+            product_color = product_color_element.text.strip()
         except NoSuchElementException:
-            product_color="Bilinmiyor"    
+            product_color = "Bilinmiyor"
 
         try:
             add_button = driver.find_element(By.CSS_SELECTOR, 'button[data-qa-action="add-to-cart"]')
@@ -319,12 +467,16 @@ def check_stock_zara(url):
             "name": product_name,
             "price": product_price,
             "image": product_img,
-            "color":product_color
+            "color": product_color
         }
     except Exception as e:
         return {"status": f"hata: {e}"}
     finally:
         driver.quit()
+
+def attach_history(product, history_data):
+    product['history'] = history_data.get(product['url'], [])
+    return product
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -348,7 +500,7 @@ def index():
                 "name": data.get("name", "Bilinmiyor"),
                 "price": data.get("price", "Bilinmiyor"),
                 "image": data.get("image", ""),
-                "color":data.get("color","Bilinmiyor")
+                "color": data.get("color", "Bilinmiyor")
             }
             save_product(product)
             product_info = product
@@ -359,8 +511,11 @@ def index():
                 result = "❌ Ürün stokta değil ve kaydedildi."
 
     all_data = load_saved_products()
+    history_data = load_price_history()
 
-    # Aramaya göre filtreleme yap
+    for category in ["stokta", "stokta_degil", "yeni_stokta", "yeni_stokta_degil"]:
+        all_data[category] = [attach_history(p, history_data) for p in all_data.get(category, [])]
+
     def filter_products(products):
         if not search:
             return products
@@ -368,8 +523,8 @@ def index():
 
     stokta_filtered = filter_products(all_data.get("stokta", []))
     stokta_degil_filtered = filter_products(all_data.get("stokta_degil", []))
-  
 
+    toplam_fiyat=sum(parse_price(p["price"]) for p in stokta_filtered if "price" in p )
 
     return render_template_string(
         HTML_TEMPLATE,
@@ -379,9 +534,9 @@ def index():
         stokta_degil=stokta_degil_filtered,
         yeni_stokta=all_data.get("yeni_stokta", []),
         yeni_stokta_degil=all_data.get("yeni_stokta_degil", []),
-     
         product_info=product_info,
-        search=search
+        search=search,
+        toplam_fiyat=toplam_fiyat
     )
 
 def send_email(subject, body, attachment_path=None):
@@ -410,10 +565,7 @@ def send_email(subject, body, attachment_path=None):
     except Exception as e:
         print(f"❌ E-posta gönderilemedi: {e}")
 
-
-
 def check_all_products_periodically():
-  
     data = load_saved_products()
     yeni_stokta = []
     yeni_stokta_degil = []
@@ -438,12 +590,10 @@ def check_all_products_periodically():
                     "price": new_data.get("price", product["price"]),
                     "image": new_data.get("image", product["image"]),
                     "status": new_status,
-                    "color":new_color,
+                    "color": new_data.get("color", product.get("color", "Bilinmiyor")),
                     "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 }
                 save_product(updated_product)
-
-               
 
                 if new_status == "stokta" and prev_status == "stokta_degil":
                     yeni_stokta.append(updated_product)
@@ -451,7 +601,6 @@ def check_all_products_periodically():
                     send_email(
                         subject=f"Stok Güncellemesi: '{updated_product['name']}' Stokta!",
                         body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve şimdi stokta.\nLink: {updated_product['url']}"
-                        
                     )
                 elif new_status == "stokta_degil" and prev_status == "stokta":
                     yeni_stokta_degil.append(updated_product)
@@ -459,7 +608,6 @@ def check_all_products_periodically():
                     send_email(
                         subject=f"Stok Güncellemesi: '{updated_product['name']}' Stoğu Tükendi!",
                         body=f"Ürün '{updated_product['name']}' stok durumunu değiştirdi ve artık stokta değil.\nLink: {updated_product['url']}"
-                     
                     )
 
     current_data = load_saved_products()
@@ -488,7 +636,6 @@ def delete_product():
     original_stokta_len = len(data["stokta"])
     original_stokta_degil_len = len(data["stokta_degil"])
 
-    # URL'ye göre filtreleme (silme)
     data["stokta"] = [p for p in data["stokta"] if p["url"] != url_to_delete]
     data["stokta_degil"] = [p for p in data["stokta_degil"] if p["url"] != url_to_delete]
 
@@ -504,13 +651,10 @@ def export_excel():
     all_data = load_saved_products()
     combined = all_data.get("stokta", []) + all_data.get("stokta_degil", [])
 
-    # Eğer veri yoksa boş tablo oluştur
     if not combined:
         df = pd.DataFrame(columns=["name", "price", "status"])
     else:
         df = pd.DataFrame(combined)
-
-        # Sadece istediğin sütunları al
         df = df[["name", "price", "status"]]
 
     output = BytesIO()
@@ -518,10 +662,12 @@ def export_excel():
         df.to_excel(writer, index=False, sheet_name='Products')
     output.seek(0)
 
-    return send_file(output,
-                     download_name="products.xlsx",
-                     as_attachment=True,
-                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    return send_file(
+        output,
+        download_name="products.xlsx",
+        as_attachment=True,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
 
 if __name__ == '__main__':
     if os.environ.get("GITHUB_ACTIONS") == "true":

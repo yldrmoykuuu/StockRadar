@@ -1,44 +1,36 @@
 {
     "stokta": [
         {
-            "url": "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485",
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
             "status": "stokta",
-            "name": "DÜZ RENK T-SHIRT VE BERMUDA JOGGING TAKIMI",
-            "price": "720,00 TL",
-            "image": "https://static.zara.net/assets/public/c609/84a4/2c7a44c19a29/f4c79a74f257/05431551712-e1/05431551712-e1.jpg?ts=1750145064741&w=704",
-            "color": "EKRU | 4424/507/712"
+            "name": "OMUZ ÇANTASI",
+            "price": "990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704",
+            "color": "SIYAH | 6242/510/800"
         },
         {
-            "url": "https://www.zara.com/tr/tr/desenli-bandana-p00653625.html?v1=471620295",
+            "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
             "status": "stokta",
-            "name": "DESENLİ BANDANA",
-            "price": "450,00 TL",
-            "image": "https://static.zara.net/assets/public/0f10/c12a/ca5f47208593/48e6a8389665/00653625400-e1/00653625400-e1.jpg?ts=1749468711238&w=704",
-            "color": "MAVI | 0653/625/400"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/cift-bel-bantli-wide-leg-pantolon-p01608225.html?v1=469506513&v2=2580407",
-            "status": "stokta",
-            "name": "ÇİFT BEL BANTLI WIDE LEG PANTOLON",
+            "name": "KONTRAST İŞLEMELİ CEKET",
             "price": "1.690,00 TL",
-            "image": "https://static.zara.net/assets/public/1d92/cbb4/520a4e6697fa/a7af4e918e93/01608225800-p/01608225800-p.jpg?ts=1750863292494&w=704",
-            "color": "SIYAH | 1608/225/800"
+            "image": "https://static.zara.net/assets/public/c5fb/a5de/e65b4c1a9641/d5e2c0377836/02298026064-p/02298026064-p.jpg?ts=1752834746494&w=704",
+            "color": "SIYAH / BEYAZ | 2298/026/064"
         },
         {
-            "url": "https://www.zara.com/tr/tr/crop-pamuk-modal-t-shirt-p03641309.html?v1=477258522",
+            "url": "https://www.zara.com/tr/tr/suni-deri-biker-ceket-p03046064.html?v1=463580668",
             "status": "stokta",
-            "name": "CROP PAMUK MODAL T-SHIRT",
-            "price": "350,00 TL",
-            "image": "https://static.zara.net/assets/public/83c5/f007/7fdb4be18680/7a9466980953/03641309800-p/03641309800-p.jpg?ts=1752664394332&w=704",
-            "color": "SIYAH | 3641/309/800"
+            "name": "SUNİ DERİ BIKER CEKET",
+            "price": "2.290,00 TL",
+            "image": "https://static.zara.net/assets/public/c57d/7370/0a18406f9422/8539d1eed1d7/03046064800-p/03046064800-p.jpg?ts=1749111893503&w=704",
+            "color": "SIYAH | 3046/064/800"
         },
         {
-            "url": "https://www.zara.com/tr/tr/trf-high-rise-wide-leg-jean-p05575029.html?v1=469506351",
+            "url": "https://www.zara.com/tr/tr/deri-topuklu-sandalet-p13311510.html?v1=448616058&v2=2367760",
             "status": "stokta",
-            "name": "TRF HIGH-RISE WIDE-LEG JEAN",
-            "price": "1.690,00 TL",
-            "image": "https://static.zara.net/assets/public/0448/552f/9bd249a494dc/77984ece3141/05575029800-p/05575029800-p.jpg?ts=1750860769706&w=704",
-            "color": "SIYAH | 5575/029/800"
+            "name": "DERİ TOPUKLU SANDALET",
+            "price": "990,00 TL",
+            "image": "https://static.zara.net/assets/public/bb3a/8190/4c184d038dac/a63b2dce5c17/13311510850-000-p/13311510850-000-p.jpg?ts=1743154245471&w=704",
+            "color": "BEYAZ | 3311/510/850"
         }
     ],
     "stokta_degil": [
@@ -47,14 +39,7 @@
             "status": "stokta_degil",
             "name": "HAYVAN DESENLİ ÇAPRAZ ASKILI ÇANTA",
             "price": "400,00 TL",
-            "image": "https://static.zara.net/assets/public/3e63/eb0b/0e034f9ebeb9/9aece8d82b9c/11143530700-p/11143530700-p.jpg?ts=1734523453182&w=704"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "status": "stokta_degil",
-            "name": "OMUZ ÇANTASI",
-            "price": "990,00 TL",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704",
+            "image": "https://static.zara.net/assets/public/3e63/eb0b/0e034f9ebeb9/9aece8d82b9c/11143530700-p/11143530700-p.jpg?ts=1734523453182&w=704",
             "color": "Bilinmiyor"
         },
         {
@@ -63,15 +48,7 @@
             "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
             "price": "490,00 TL",
             "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=704",
-            "color": "Bilinmiyor"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/suni-deri-crop-biker-ceket-p04391758.html?v1=411843328",
-            "status": "stokta_degil",
-            "name": "SUNİ DERİ CROP BIKER CEKET",
-            "price": "490,00 TL",
-            "image": "https://static.zara.net/assets/public/fac8/d7d2/7cf34f119535/5fec75b1bf2d/04391758606-p/04391758606-p.jpg?ts=1739354902430&w=704",
-            "color": "Bilinmiyor"
+            "color": "KOYU INDIGO | 6929/271/443"
         },
         {
             "url": "https://www.zara.com/tr/tr/kapakli-kol-cantasi-p16565510.html?v1=410574990",
@@ -79,23 +56,7 @@
             "name": "KAPAKLI KOL ÇANTASI",
             "price": "590,00 TL",
             "image": "https://static.zara.net/assets/public/0cc6/52cf/71d946e6b1aa/e827bb309050/16565510624-e1/16565510624-e1.jpg?ts=1737727289863&w=704",
-            "color": "Bilinmiyor"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/yari-uzun-boucle-kaban-p03046049.html?v1=410594600",
-            "status": "stokta_degil",
-            "name": "YARI UZUN BOUCLÉ KABAN",
-            "price": "490,00 TL",
-            "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=704",
-            "color": "Bilinmiyor"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/basic-blazer-p01255887.html?v1=436043895",
-            "status": "stokta_degil",
-            "name": "BASIC BLAZER",
-            "price": "490,00 TL",
-            "image": "https://static.zara.net/assets/public/974e/c6e8/2217445ea3b2/09e0f0106c22/01255778800-p/01255778800-p.jpg?ts=1737849475000&w=704",
-            "color": "Bilinmiyor"
+            "color": "BORDO KIRMIZI | 6565/510/624"
         }
     ],
     "yeni_stokta": [],
