@@ -61,15 +61,6 @@
             "image": "https://static.zara.net/assets/public/82cc/0a6e/0a854917a568/8bd21a395621/03046049712-p/03046049712-p.jpg?ts=1736510770731&w=704"
         }
     ],
-    "yeni_stokta": [
-        {
-            "url": "https://www.zara.com/tr/tr/crop-denim-gomlek-trf-p06929068.html?v1=449173038&v2=2580407",
-            "name": "CROP DENIM GÖMLEK TRF",
-            "price": "490,00 TL\n390,00 TL",
-            "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
-            "status": "stokta",
-            "last_updated": "2025-07-29 01:55:56"
-        }
-    ],
+    "yeni_stokta": [],
     "yeni_stokta_degil": []
 }
