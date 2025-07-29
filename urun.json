@@ -28,6 +28,14 @@
             "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=710",
             "status": "stokta",
             "last_updated": "2025-07-28 19:18:39"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
+            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
+            "price": "790,00 TL\n490,00 TL",
+            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
+            "status": "stokta",
+            "last_updated": "2025-07-29 07:09:12"
         }
     ],
     "stokta_degil": [
@@ -52,33 +60,17 @@
             "image": "https://static.zara.net/assets/public/e5a5/aece/b5e441aca500/83e8958dfb49/06929068400-p/06929068400-p.jpg?ts=1743502341104&w=710",
             "status": "stokta_degil",
             "last_updated": "2025-07-29 06:31:56"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
-            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
-            "price": "790,00 TL\n490,00 TL",
-            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-29 06:32:00"
         }
     ],
-    "yeni_stokta": [],
-    "yeni_stokta_degil": [
-        {
-            "url": "https://www.zara.com/tr/tr/crop-denim-gomlek-trf-p06929068.html?v1=449173038&v2=2580407",
-            "name": "CROP DENIM GÖMLEK TRF",
-            "price": "490,00 TL\n390,00 TL",
-            "image": "https://static.zara.net/assets/public/e5a5/aece/b5e441aca500/83e8958dfb49/06929068400-p/06929068400-p.jpg?ts=1743502341104&w=710",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-29 06:31:56"
-        },
+    "yeni_stokta": [
         {
             "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
             "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
             "price": "790,00 TL\n490,00 TL",
             "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
-            "status": "stokta_degil",
-            "last_updated": "2025-07-29 06:32:00"
+            "status": "stokta",
+            "last_updated": "2025-07-29 07:09:12"
         }
-    ]
+    ],
+    "yeni_stokta_degil": []
 }
