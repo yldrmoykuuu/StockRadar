@@ -61,15 +61,5 @@
         }
     ],
     "yeni_stokta": [],
-    "yeni_stokta_degil": [
-        {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "name": "OMUZ ÇANTASI",
-            "price": "990,00 TL",
-            "image": "https://static.zara.net/stdstatic/6.82.0/images/transparent-background.png",
-            "status": "stokta_degil",
-            "color": "SIYAH | 6242/510/800",
-            "last_updated": "2025-07-29 10:21:46"
-        }
-    ]
+    "yeni_stokta_degil": []
 }
