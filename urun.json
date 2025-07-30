@@ -23,15 +23,6 @@
             "price": "990,00 TL",
             "image": "https://static.zara.net/assets/public/bb3a/8190/4c184d038dac/a63b2dce5c17/13311510850-000-p/13311510850-000-p.jpg?ts=1743154245471&w=704",
             "color": "BEYAZ | 3311/510/850"
-        },
-        {
-            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
-            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
-            "price": "490,00 TL",
-            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
-            "status": "stokta",
-            "color": "KOYU INDIGO | 6929/271/443",
-            "last_updated": "2025-07-30 07:24:33"
         }
     ],
     "stokta_degil": [
@@ -59,18 +50,27 @@
             "status": "stokta_degil",
             "color": "SIYAH | 6242/510/800",
             "last_updated": "2025-07-29 10:21:46"
-        }
-    ],
-    "yeni_stokta": [
+        },
         {
             "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
             "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
             "price": "490,00 TL",
             "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
-            "status": "stokta",
+            "status": "stokta_degil",
             "color": "KOYU INDIGO | 6929/271/443",
-            "last_updated": "2025-07-30 07:24:33"
+            "last_updated": "2025-07-30 08:28:32"
         }
     ],
-    "yeni_stokta_degil": []
+    "yeni_stokta": [],
+    "yeni_stokta_degil": [
+        {
+            "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
+            "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
+            "price": "490,00 TL",
+            "image": "https://static.zara.net/assets/public/d626/6bea/b7a54eaf955a/b3586e1669b6/06929271443-p/06929271443-p.jpg?ts=1739882464819&w=710",
+            "status": "stokta_degil",
+            "color": "KOYU INDIGO | 6929/271/443",
+            "last_updated": "2025-07-30 08:28:32"
+        }
+    ]
 }
