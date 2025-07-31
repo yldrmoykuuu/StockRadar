@@ -3,6 +3,14 @@
         {
             "date": "2025-07-29",
             "price": "400,00 TL"
+        },
+        {
+            "date": "2025-07-31",
+            "price": "300,00 TL"
+        },
+        {
+            "date": "2025-07-31",
+            "price": "300,00 TL"
         }
     ],
     "https://www.zara.com/tr/tr/yirtmacli-hayvan-desenli-bucket-sapka-p03920903.html?v1=463535999": [
@@ -15,11 +23,19 @@
         {
             "date": "2025-07-29",
             "price": "990,00 TL"
+        },
+        {
+            "date": "2025-07-31",
+            "price": "790,00 TL"
         }
     ],
     "https://www.zara.com/tr/tr/kapakli-kol-cantasi-p16565510.html?v1=410574990": [
         {
             "date": "2025-07-29",
+            "price": "590,00 TL"
+        },
+        {
+            "date": "2025-07-31",
             "price": "590,00 TL"
         }
     ],
@@ -27,11 +43,23 @@
         {
             "date": "2025-07-29",
             "price": "490,00 TL"
+        },
+        {
+            "date": "2025-07-31",
+            "price": "490,00 TL"
         }
     ],
     "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113": [
         {
             "date": "2025-07-29",
+            "price": "1.690,00 TL"
+        },
+        {
+            "date": "2025-07-31",
+            "price": "1.690,00 TL"
+        },
+        {
+            "date": "2025-07-31",
             "price": "1.690,00 TL"
         }
     ],
@@ -63,6 +91,24 @@
         {
             "date": "2025-07-29",
             "price": "490,00 TL"
+        }
+    ],
+    "https://www.zara.com/tr/tr/duz-renk-t-shirt-ve-bermuda-jogging-takimi-p04424507.html?v1=463376485": [
+        {
+            "date": "2025-07-31",
+            "price": "720,00 TL"
+        }
+    ],
+    "https://www.zara.com/tr/tr/puskullu-desenli-bluz-p05029081.html?v1=435247461&v2=2220625": [
+        {
+            "date": "2025-07-31",
+            "price": "490,00 TL"
+        }
+    ],
+    "https://www.zara.com/tr/tr/suni-deri-bomber-ceket-p04341864.html?v1=469506346&v2=2220625": [
+        {
+            "date": "2025-07-31",
+            "price": "2.290,00 TL"
         }
     ]
 }
