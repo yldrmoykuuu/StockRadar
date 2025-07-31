@@ -36,7 +36,11 @@ Matplotlib veya Plotly (isteğe bağlı): Fiyat değişim grafikleri için.
 
 <img width="715" height="561" alt="excel_product" src="https://github.com/user-attachments/assets/f3fef6f9-86fa-42d1-9319-0470a447c3e1" />
 
- Fiyat değişim takibi: Fiyat değişikliklerini takip edip grafiklerle gösterme.
+ Fiyat değişim takibi: Fiyat değişikliklerini takip edip gösterme.
+
+ 
+ <img width="426" height="395" alt="image" src="https://github.com/user-attachments/assets/9dd3dd02-94fd-4301-a055-34e8e6a3bc65" />
+
 
  Silme butonu: İstenmeyen ürünleri listeden kaldırma.
 
