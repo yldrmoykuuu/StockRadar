@@ -346,14 +346,11 @@ def update_price_history(product):
 
     history_data = load_price_history()
     product_history = history_data.get(url, [])
+    product_history.append({"date": today_str, "price": price})
+    history_data[url] = product_history
+    save_price_history(history_data)
+    print(f"Fiyat geçmişine eklendi (aynı bile olsa): {url} - {price} - {today_str}")
 
-    if not any(entry["date"] == today_str and entry["price"] == price for entry in product_history):
-        product_history.append({"date": today_str, "price": price})
-        history_data[url] = product_history
-        save_price_history(history_data)
-        print(f"Fiyat geçmişi güncellendi: {url} - {price} - {today_str}")
-    else:
-        print(f"Aynı fiyat zaten kayıtlı: {url} - {price} - {today_str}")
 
 
 

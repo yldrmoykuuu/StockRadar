@@ -2,7 +2,7 @@ name: Stok Takibi
 
 on:
   schedule:
-    - cron: '0 * * * *'     # Her saat başı çalışır
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 permissions:

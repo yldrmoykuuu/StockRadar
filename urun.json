@@ -1,14 +1,6 @@
 {
     "stokta": [
         {
-            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
-            "status": "stokta",
-            "name": "OMUZ ÇANTASI",
-            "price": "990,00 TL",
-            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704",
-            "color": "SIYAH | 6242/510/800"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/kontrast-islemeli-ceket-p02298026.html?v1=477870195&v2=2583113",
             "status": "stokta",
             "name": "KONTRAST İŞLEMELİ CEKET",
@@ -35,14 +27,6 @@
     ],
     "stokta_degil": [
         {
-            "url": "https://www.zara.com/tr/tr/hayvan-desenli-capraz-askili-canta-p11143530.html?v1=426955083",
-            "status": "stokta_degil",
-            "name": "HAYVAN DESENLİ ÇAPRAZ ASKILI ÇANTA",
-            "price": "400,00 TL",
-            "image": "https://static.zara.net/assets/public/3e63/eb0b/0e034f9ebeb9/9aece8d82b9c/11143530700-p/11143530700-p.jpg?ts=1734523453182&w=704",
-            "color": "Bilinmiyor"
-        },
-        {
             "url": "https://www.zara.com/tr/tr/trf-cift-dugmeli-denim-yelek-p06929271.html?v1=441075461",
             "status": "stokta_degil",
             "name": "TRF ÇİFT DÜĞMELİ DENİM YELEK",
@@ -51,12 +35,30 @@
             "color": "KOYU INDIGO | 6929/271/443"
         },
         {
-            "url": "https://www.zara.com/tr/tr/kapakli-kol-cantasi-p16565510.html?v1=410574990",
+            "url": "https://www.zara.com/tr/tr/balon-kollu-ceket-p04772732.html?v1=410575256",
             "status": "stokta_degil",
-            "name": "KAPAKLI KOL ÇANTASI",
-            "price": "590,00 TL",
-            "image": "https://static.zara.net/assets/public/0cc6/52cf/71d946e6b1aa/e827bb309050/16565510624-e1/16565510624-e1.jpg?ts=1737727289863&w=704",
-            "color": "BORDO KIRMIZI | 6565/510/624"
+            "name": "BALON KOLLU CEKET",
+            "price": "490,00 TL",
+            "image": "https://static.zara.net/assets/public/f481/0633/7fb347229af7/c96d2c6790c2/04772732401-p/04772732401-p.jpg?ts=1735828730059&w=704",
+            "color": "LACİVERT | 4772/732/401"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/omuz-cantasi-p16242510.html?v1=413993089",
+            "name": "OMUZ ÇANTASI",
+            "price": "990,00 TL",
+            "image": "https://static.zara.net/assets/public/0dd5/e443/a90e402e8417/cbc38a7928a2/16242510800-p/16242510800-p.jpg?ts=1740044974341&w=704",
+            "status": "stokta_degil",
+            "color": "SIYAH | 6242/510/800",
+            "last_updated": "2025-07-29 13:06:02"
+        },
+        {
+            "url": "https://www.zara.com/tr/tr/dikis-detayli-halter-top-p02624622.html?v1=438153082",
+            "name": "DİKİŞ DETAYLI HALTER TOP",
+            "price": "690,00 TL",
+            "image": "https://static.zara.net/assets/public/47cd/8991/199e4d8abf04/3351d71c2826/02624622712-p/02624622712-p.jpg?ts=1742397112225&w=704",
+            "status": "stokta_degil",
+            "color": "EKRU | 2624/622/712",
+            "last_updated": "2025-07-29 22:18:37"
         }
     ],
     "yeni_stokta": [],
