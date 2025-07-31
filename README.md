@@ -25,7 +25,9 @@ Matplotlib veya Plotly (isteğe bağlı): Fiyat değişim grafikleri için.
  Renkli uyarılar: Ürün stok durumuna göre yeşil (stokta), kırmızı (stokta yok).
 
  Ürün detayları: Ürün adı, fiyat, resim ve URL bilgilerini çekme ve kaydetme.
-<img width="952" height="922" alt="stoğa girmiş ürün listesi" src="https://github.com/user-attachments/assets/c628d040-75c0-473a-8506-6051a97331cd" />
+ 
+<img width="431" height="663" alt="image" src="https://github.com/user-attachments/assets/108d1cf4-783f-4bb3-a50d-af4496304dfb" />
+
 
  Yeni Stoğa Gelenler: HTML sayfada “Yeni Stoğa Gelenler” bölümünde yeni ürünleri listeleme.
 <img width="1892" height="980" alt="yeni_stoğu_tükenenlerin_stokta_yok" src="https://github.com/user-attachments/assets/f32a21da-aec3-4b9b-a9a3-105a9e328dfe" />
